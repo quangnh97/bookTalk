@@ -1,4 +1,6 @@
-# SocialNetworkA.N.Lab
+
+# BookTalk
+
 
 ## Prerequiries
 - PHP 6
@@ -19,7 +21,11 @@
 - Launch `php artisan db:seed --class=UserSeeder`
 - Build front with `npm run dev`
 - Run: `npm run watch`
+<<<<<<< 20324a6aaabc638f3e292cfc53aa60ef434a79af
 - Database: http://127.0.0.1:8080/
+=======
+- Database: http://127.0.0.1:8002/
+>>>>>>> first base
 
 
 ## Usage
