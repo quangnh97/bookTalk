@@ -1,0 +1,50 @@
+<template>
+<div class="col-md-9 col-sm-12 col-xs-12 center-con">
+    <ul class="center-block row">
+        <li class="cat-item col-xs-12 col-md-4 col-sm-6"
+            v-for="(category, index) in categories"
+            :key="index"
+        >
+            <router-link :to="{name:'category', params: { id: category.id } }">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                {{category.name}}
+            </router-link>
+
+        </li>
+    </ul>
+</div>
+</template>
+
+<script>
+export default {
+    props: {
+    },
+
+    data() {
+        return {
+            categories:[],
+        }
+    },
+
+    created() {
+        this.getListCategories();
+    },
+    methods: {
+        getListCategories(){
+            axios.get('/categories')
+            .then(response => {
+                console.log(response.data);
+                this.categories = response.data;
+            }) 
+            .catch(function (error) {
+                console.log(error);
+            }); 
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+    .cat-item {
+        list-style-type: none;
+    }
+</style>

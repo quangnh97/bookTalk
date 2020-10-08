@@ -19,13 +19,13 @@
         <div class="col-md-12">
 
           <!-- left side start -->
-          <leftSidebarCom v-if="$auth.check()" ></leftSidebarCom>
+<!--          <leftSidebarCom v-if="$auth.check()" ></leftSidebarCom>-->
           <!-- left side end -->
           <!-- center content start -->
           <router-view v-bind:auth="user" :contact="selectedContact" :messages="messages" @newMess="saveNewMessage" ></router-view>
           <!-- center content end -->
           <!-- right side start -->
-          <contactsList v-if="$auth.check()" :contacts="contacts" @selected="startConversationWith" ></contactsList>
+<!--          <contactsList v-if="$auth.check()" :contacts="contacts" @selected="startConversationWith" ></contactsList>-->
           <!-- right side end -->
 
         </div>

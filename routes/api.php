@@ -50,6 +50,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     // update post
     Route::post('updatePost/{id}', 'PostsController@updatePost');
 
+    // category
+    Route::resource('categories', CategoryController::class);
+    Route::get('/booksInCategory','CategoryController@booksInCategory');
     //add comments
     Route::post('addComment', 'CommentsController@addComment');
     //delete comments

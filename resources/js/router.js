@@ -13,6 +13,9 @@ import FindFriends from './pages/user/FindFriends'
 import ChangePhoto from './pages/user/ChangePhoto'
 import Request from './pages/user/Request'
 import Conversation from './pages/user/Conversation'
+import Categories from './pages/user/categories/index'
+import Category from './pages/user/categories/category'
+import Book from './pages/user/categories/category'
 
 // Routes
 const routes = [
@@ -75,7 +78,7 @@ const routes = [
   //   }
   // },
 
-  { 
+  {
     path: '/findFriends', name: 'findFriends', component: FindFriends,
     meta: {
       auth: true
@@ -95,6 +98,31 @@ const routes = [
       auth: true
     }
   },
+  // books
+    {
+        path: '/categories',
+        name: 'categories',
+        component: Categories,
+        meta: {
+            auth: true
+        }
+    },
+    {
+      path: '/category/:id',
+      name: 'category',
+      component: Category,
+      meta: {
+          auth: true
+      }
+    },
+    {
+      path: '/book/:id',
+      name: 'book',
+      component: Book,
+      meta: {
+          auth: true
+      }
+    },
   // ADMIN ROUTES
   {
     path: '/admin', name: 'admin.dashboard', component: AdminDashboard,
@@ -104,7 +132,7 @@ const routes = [
   },
 
   //
-  
+
 ]
 
 const router = new VueRouter({
