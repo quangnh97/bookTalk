@@ -24,6 +24,12 @@ Vue.router = router
 Vue.use(VueRouter)
 // Set Vue authentication
 Vue.use(VueAxios, axios)
+const EventBus = new Vue();
+export default EventBus;
+
+import Paginate from 'vuejs-paginate';
+Vue.component('paginate', Paginate);
+
 axios.defaults.baseURL = `http://127.0.0.1:8008/api`
 Vue.use(VueAuth, auth)
 import './bootstrap'

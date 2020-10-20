@@ -26,9 +26,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import EventBus from '../../app';
-const CREATE_NOTE = 'CREATE_NOTE';
+const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export default {
-  CREATE_NOTE: CREATE_NOTE,
+    CREATE_CATEGORY: CREATE_CATEGORY,
   data() {
     return {
         name: '',
@@ -63,7 +63,9 @@ export default {
               .then(response => {
                   console.log(response.data);
                   if(response.data.success){
-
+                      EventBus.$emit(CREATE_CATEGORY, 'create_category');
+                      this.hide();
+                      this.name = '';
                   }
               })
               .catch(function (error) {

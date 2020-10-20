@@ -1,7 +1,8 @@
 <template>
     <div >
         <div class="head-ps">QUẢN LÍ THỂ LOẠI</div>
-        <div class="table-item ">
+        <div class="table-item " style="    height: 400px;
+    overflow-y: scroll;">
             <table class="table table-bordered">
                 <tr class="row-text">
                     <th>Id</th>
@@ -29,6 +30,14 @@
                         >
                             <i class="fas fa-pencil-alt" />
                         </button>
+                        <router-link :to="{name:'books-category', params: { id: category.id } }">
+                            <button
+                                class="btn books" style="background-color: #F5C63C;"
+                            >
+                                <i class="fas fa-book"></i>
+                            </button>
+                        </router-link>
+
                         <button
                             type="button"
                             class="btn delete"
@@ -41,31 +50,33 @@
                     </td>
                 </tr>
             </table>
-<!--            <div v-if="numberPage>=2" class="overflow-auto">-->
-<!--                <paginate-->
-<!--                    v-model="pageNum"-->
-<!--                    :page-count="numberPage"-->
-<!--                    :page-range="3"-->
-<!--                    :margin-pages="2"-->
-<!--                    :click-handler="paginateFreeItem"-->
-<!--                    :prev-text="$t('index.prev')"-->
-<!--                    :next-text=" $t('index.nextPaginate')"-->
-<!--                    :container-class="'pagination'"-->
-<!--                    :page-class="'page-item'"-->
-<!--                    :prev-class="'page-item'"-->
-<!--                    :next-class="'page-item'"-->
-<!--                    :page-link-class="'page-link-item'"-->
-<!--                    :prev-link-class="'page-link-item'"-->
-<!--                    :next-link-class="'page-link-item'"-->
-<!--                    :active-class="'active-class'"-->
-<!--                    :hide-prev-next="true"-->
-<!--                />-->
-<!--            </div>-->
+        </div>
+        <div v-if="numberPage>=2" class="overflow-auto">
+            <paginate
+                v-model="pageNum"
+                :page-count="numberPage"
+                :page-range="3"
+                :margin-pages="2"
+                :click-handler="clickPaginate"
+                prev-text="<<"
+                next-text=">>"
+                :container-class="'pagination'"
+                :page-class="'page-item'"
+                :prev-class="'page-item'"
+                :next-class="'page-item'"
+                :page-link-class="'page-link-item'"
+                :prev-link-class="'page-link-item'"
+                :next-link-class="'page-link-item'"
+                :active-class="'active-class'"
+                :hide-prev-next="true"
+            />
         </div>
     </div>
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
+    import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
+    import EventBus from '../../app';
     export default {
         props: {
             auth: {
@@ -75,21 +86,34 @@
         data() {
             return {
                 categories:[],
+                pageNumber: this.$route.params.pageNumber, // page so bao nhieu
+                // pageNum: Number(this.$route.params.pageNumber),
+                pageNum: 1,
+                numberPage: 1, // so trang
+                onePage: 4,
             }
         },
         created() {
             this.getListCategories();
+            EventBus.$on(ModalCreateCategory.CREATE_CATEGORY, () => {
+                this.getListCategories();
+            });
         },
         methods: {
             ...mapActions({
                 showModalCreateCategory: 'modals/showModalCreateCategory',
             }),
 
-            getListCategories(){
-                axios.get('/categories')
+            clickPaginate(pageNum) {
+                this.getListCategories(pageNum);
+            },
+
+            getListCategories(pageNum){
+                axios.get('/categories?page=' + pageNum)
                     .then(response => {
                         console.log(response.data);
-                        this.categories = response.data;
+                        this.categories = response.data.data;
+                        this.numberPage = response.data.last_page;
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -162,7 +186,7 @@
             }
         }
         .status-column {
-            width: 75%;
+            width: 70%;
             text-align: left;
             padding: 2.2% 0 0 3%;;
         }
@@ -178,10 +202,8 @@
             }
             .edit {
                 background-color: #efefef;
-                margin-left: 15%;
             }
             .delete {
-                margin-left: 10%;
                 background-color: #ff8400;
             }
         }

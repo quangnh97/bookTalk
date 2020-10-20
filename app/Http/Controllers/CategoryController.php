@@ -15,13 +15,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $categories= DB::table('category')->paginate(10);
+        return $categories;
+    }
+
+    public function allCategories()
+    {
         $categories= DB::table('category')->get();
         return $categories;
     }
 
     public function categoryHome()
     {
-        $categories= DB::table('category')->get();
+        $categories= DB::table('category')->limit(15)->get();
         return $categories;
     }
 

@@ -20,6 +20,7 @@ import bookOnline from './pages/user/book/readOnline'
 import categoriesManager from './pages/admin/categoriesManager'
 import booksManager from './pages/admin/booksManager'
 import usersManager from './pages/admin/usersManager'
+import booksCategory from './pages/admin/booksCategory'
 
 // Routes
 const routes = [
@@ -161,6 +162,12 @@ const routes = [
               name: 'users-manager',
               component: usersManager,
           },
+          {
+              path: '/admin/books-category/:id',
+              name: 'books-category',
+              component: booksCategory,
+          },
+
       ],
   },
 
