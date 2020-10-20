@@ -70,7 +70,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   html, body {
     background-color: #ddd;
     font-family: 'Raleway', sans-serif;

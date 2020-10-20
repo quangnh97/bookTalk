@@ -41,7 +41,9 @@
                 </div>
             </div>
         </div>
-        <router-view />
+        <div class="div-right">
+            <router-view />
+        </div>
     </div>
   </div>
 </template>
@@ -63,7 +65,13 @@
         width: 275px;
         float: left;
     }
-
+    .div-right {
+        height: auto;
+        width: 70%;
+        background-color: #efefef;
+        float: left;
+        margin: .5%;
+    }
     .st-s {
         background-color: rgb(254 230 122) !important;
         width: 82%;

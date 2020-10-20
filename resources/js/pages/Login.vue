@@ -41,11 +41,11 @@
     created() {
       axios.get('/posts')
       .then(response => {
-        console.log(response); 
+        console.log(response);
         this.posts = response.data;
       })
       .catch(function (error) {
-        console.log(error); 
+        console.log(error);
       });
     },
 
@@ -78,13 +78,13 @@
         .then(response => {
           console.log(response.headers.authorization);
           const token = response.headers.authorization
-          localStorage.setItem('user_token', token) // store the token in localstorage
+          localStorage.setItem('user_token', token) // index the token in localstorage
           console.log(localStorage);
         })
         .catch(err => {
-          localStorage.removeItem('user_token') 
+          localStorage.removeItem('user_token')
           reject(err)
-        })  
+        })
       }
     }
   }

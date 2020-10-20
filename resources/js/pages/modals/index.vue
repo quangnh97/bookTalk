@@ -1,0 +1,53 @@
+<template>
+  <div>
+    <modal-create-category />
+  </div>
+</template>
+
+<script>
+import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
+export default {
+  components: {
+    ModalCreateCategory,
+  },
+};
+</script>
+
+<style lang="scss">
+    .modal.show {
+        display: block !important;
+        background-color: rgba(29, 32, 45, .5);
+    }
+    .modal-header .close {
+        padding: 0.5rem 0.5rem !important;
+        margin: -0.5rem -0.5rem -0.5rem auto !important;
+        border: 1px solid orange !important;
+        border-radius: 0.25rem;
+    }
+
+    .modal-header .close:hover {
+        color: #fff;
+        background-color: #227dc7;
+        border-color: #2176bd !important;
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: calc(0.3rem - 1px);
+        border-top-right-radius: calc(0.3rem - 1px);
+    }
+    .modal-header {
+        background-color: #fee67a;
+        text-align: center;
+        color: black;
+        text-transform: uppercase;
+        .modal-label {
+            margin-bottom: 0px !important;
+        }
+    }
+
+</style>
