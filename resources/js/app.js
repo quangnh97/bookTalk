@@ -22,7 +22,7 @@ Vue.router = router
 Vue.use(VueRouter)
 // Set Vue authentication
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `http://127.0.0.1:8002/api`
+axios.defaults.baseURL = `http://127.0.0.1:8008/api`
 Vue.use(VueAuth, auth)
 import './bootstrap'
 // Load Index

@@ -18,6 +18,9 @@
 <script>
 export default {
     props: {
+        auth: {
+            type: Object
+        }
     },
 
     data() {
@@ -28,6 +31,7 @@ export default {
 
     created() {
         this.getListCategories();
+        console.log('auth' + this.auth);
     },
     methods: {
         getListCategories(){
@@ -35,10 +39,10 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.categories = response.data;
-            }) 
+            })
             .catch(function (error) {
                 console.log(error);
-            }); 
+            });
         }
     }
 }

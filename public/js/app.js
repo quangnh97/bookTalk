@@ -5326,7 +5326,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
+  props: {
+    auth: {
+      type: Object
+    }
+  },
   data: function data() {
     return {
       categoryId: '',
@@ -5337,6 +5341,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.categoryId = this.$route.params.id;
     this.getListBooks();
+    console.log('auth' + this.auth);
   },
   methods: {
     getListBooks: function getListBooks() {
@@ -5386,7 +5391,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
+  props: {
+    auth: {
+      type: Object
+    }
+  },
   data: function data() {
     return {
       categories: []
@@ -5394,6 +5403,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getListCategories();
+    console.log('auth' + this.auth);
   },
   methods: {
     getListCategories: function getListCategories() {
@@ -63100,7 +63110,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.router = _router__WEBPACK_IMPORTED_MO
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]); // Set Vue authentication
 
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_4___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
-axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "http://127.0.0.1:8002/api";
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "http://127.0.0.1:8008/api";
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_3___default.a, _auth__WEBPACK_IMPORTED_MODULE_7__["default"]);
  // Load Index
 

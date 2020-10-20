@@ -7,7 +7,6 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-websockets" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cboden/ratchet" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/buzz-react" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
@@ -70,7 +69,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/dns" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/event-loop" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/react/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/http" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise-timer" />
@@ -98,6 +97,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mime" />

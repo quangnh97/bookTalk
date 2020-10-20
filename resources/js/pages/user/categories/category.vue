@@ -29,8 +29,10 @@
 <script>
 export default {
     props: {
+        auth: {
+            type: Object
+        }
     },
-
     data() {
         return {
             categoryId: '',
@@ -42,6 +44,7 @@ export default {
     created() {
         this.categoryId = this.$route.params.id;
         this.getListBooks();
+        console.log('auth' + this.auth);
     },
     methods: {
         getListBooks(){
