@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -47,9 +48,19 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $name = $request->name;
+
+        $category = DB::table('category')
+            ->insert([
+                'name' => $name,
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        return response()->json([
+            'success' => true,
+            'data' => $category,
+        ]);
     }
 
     /**

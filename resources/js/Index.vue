@@ -34,6 +34,7 @@
       </div>
 
     </div>
+      <AppModals />
   </div>
 </template>
 
@@ -45,6 +46,7 @@
   import invitation from './components/Invitation';
   import messNotify from './components/messNotify';
   import contactsList from './components/contactsList';
+  import AppModals from './pages/modals/index';
 
   export default {
     components: {
@@ -54,7 +56,8 @@
       search,
       invitation,
       messNotify,
-      contactsList
+      contactsList,
+        AppModals
     },
 
     data() {
