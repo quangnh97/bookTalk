@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         getListCategories(){
-            axios.get('/categories')
+            axios.get('/allCategories')
             .then(response => {
                 console.log(response.data);
                 this.categories = response.data;

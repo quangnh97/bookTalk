@@ -1,19 +1,38 @@
 <template>
   <div>
     <modal-create-category />
+      <modal-delete></modal-delete>
   </div>
 </template>
 
 <script>
 import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
+import ModalDelete from '../../components/modals/ModalDelete';
 export default {
   components: {
     ModalCreateCategory,
+      ModalDelete,
   },
 };
 </script>
 
 <style lang="scss">
+    .pagination {
+        justify-content: center;
+        display: flex;
+        padding-left: 0;
+        list-style: none;
+        margin-top: 1rem;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .active-class {
+        .page-link-item {
+            color: rgb(255 0 0);
+        }
+    }
+
     .modal.show {
         display: block !important;
         background-color: rgba(29, 32, 45, .5);

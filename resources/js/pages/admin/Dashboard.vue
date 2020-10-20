@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="div-right">
+        <div class="div-right" >
             <router-view />
         </div>
     </div>

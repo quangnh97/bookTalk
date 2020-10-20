@@ -18,8 +18,12 @@
                 </li>
             </ul>
         </div>
+        <div class="text-center mt-4 all-book">
+            <router-link :to="{name:'categories' }" class="btn-ebook view-all-book" title="Xem tất cả sách">
+                Xem tất cả sách
+            </router-link>
+        </div>
 
-      <div class="card-body">
 
       </div>
     </div>
@@ -81,6 +85,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .all-book {
+        text-transform: uppercase;
+        .view-all-book {
+            border: 1px solid rgb(204 204 204);
+            border-radius: 15px;
+            padding: 8px;
+            color: rgb(48 151 209);
+        }
+    }
     .card-header {
         h1 {
             padding-top: 12px;
@@ -92,11 +105,14 @@ export default {
     .cat-item {
         list-style-type: none;
         display: inline-block;
+        margin-bottom: 20px;
         a {
             border: 1px solid rgb(204 204 204);
             border-radius: 15px;
             padding: 8px;
             margin-right: 20px;
+            color: rgb(0 0 0) !important;
         }
     }
+
 </style>
