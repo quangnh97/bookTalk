@@ -18,6 +18,12 @@ class CategoryController extends Controller
         return $categories;
     }
 
+    public function categoryHome()
+    {
+        $categories= DB::table('category')->get();
+        return $categories;
+    }
+
     public function booksInCategory(Request $request)
     {
         $id = $request->categoryId;
@@ -26,9 +32,9 @@ class CategoryController extends Controller
         ->join('book', 'book.id', '=', 'book_category.book_id')
         ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
         ->where('book_category.category_id', $id)
-        ->select( 'book.name','book_profile.pic')
+        ->select( 'book.id','book.name','book_profile.pic')
         ->paginate(10);
-        
+
         return response()->json([
             'success' => true,
             'name' => $name,

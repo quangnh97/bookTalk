@@ -1,16 +1,18 @@
 <template>
   <div id="main">
     <div class="top-menu">
-      <span style="float: left;" >
-        <router-link :to="{name: 'dashboard'}" style="font-size:20px; text-transform: uppercase; text-decoration: none; font-weight: bold;">
-          <img :src="'/images/logoBT.png'" width="30" style="margin:5px;"/>
+        <div class="container" style="position: relative;">
+            <span style="float: left;" >
+        <router-link :to="{name: 'dashboard'}" style="font-size:24px; text-transform: uppercase; text-decoration: none; font-weight: bold;">
+          <img :src="'/images/logoBT.png'" width="40" style="margin:5px;"/>
           BookTalk
         </router-link>
       </span>
-      <search v-if="$auth.check()" ></search>
-      <invitation v-if="$auth.check()"></invitation>
-      <messNotify v-if="$auth.check()" v-bind:countTotalUnread="countTotalUnread"></messNotify>
-      <navigationMenu v-bind:auth="user" ></navigationMenu>
+            <search v-if="$auth.check()" ></search>
+            <invitation v-if="$auth.check()"></invitation>
+            <messNotify v-if="$auth.check()" v-bind:countTotalUnread="countTotalUnread"></messNotify>
+            <navigationMenu v-bind:auth="user" ></navigationMenu>
+        </div>
     </div>
 
     <div id="content">

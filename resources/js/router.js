@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Dashboard from './pages/user/Dashboard'
+import Dashboard from './pages/Home'
 import AdminDashboard from './pages/admin/Dashboard'
 import Profile from './pages/user/Profile'
 import EditProfile from './pages/user/EditProfile'
@@ -15,7 +15,11 @@ import Request from './pages/user/Request'
 import Conversation from './pages/user/Conversation'
 import Categories from './pages/user/categories/index'
 import Category from './pages/user/categories/category'
-import Book from './pages/user/categories/category'
+import Book from './pages/user/book/index'
+import bookOnline from './pages/user/book/readOnline'
+import categoriesManager from './pages/admin/categoriesManager'
+import booksManager from './pages/admin/booksManager'
+import usersManager from './pages/admin/usersManager'
 
 // Routes
 const routes = [
@@ -123,12 +127,41 @@ const routes = [
           auth: true
       }
     },
+    {
+        path: '/doc-sach/:id',
+        name: 'bookOnline',
+        component: bookOnline,
+        meta: {
+            auth: true
+        }
+    },
   // ADMIN ROUTES
   {
-    path: '/admin', name: 'admin.dashboard', component: AdminDashboard,
+    path: '/admin',
+    redirect: '/admin/categories-manager',
+    name: 'admin.dashboard',
+    component: AdminDashboard,
     meta: {
       auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
-    }
+    },
+      children: [
+          {
+              path: '/admin/categories-manager',
+              name: 'categories-manager',
+              component: categoriesManager,
+          },
+          {
+              path: '/admin/books-manager',
+              name: 'books-manager',
+              component: booksManager,
+          },
+
+          {
+              path: '/admin/users-manager',
+              name: 'users-manager',
+              component: usersManager,
+          },
+      ],
   },
 
   //

@@ -12,8 +12,8 @@
                         :key="index"
                     >
                         <router-link :to="{name:'book', params: { id: book.id } }">
-                            <img :src="'../images/books/'+ book.pic" :alt="book.name">
-                            {{book.name}}
+                            <img :src="'../images/books/'+ book.pic" :alt="book.name" class="img-book">
+                            <p class="book-name">{{book.name}}</p>
                         </router-link>
                     </div>
                 </div>
@@ -54,10 +54,10 @@ export default {
                 console.log(response.data);
                 this.books = response.data.books.data;
                 this.categoryName = response.data.name[0].name;
-            }) 
+            })
             .catch(function (error) {
                 console.log(error);
-            }); 
+            });
         }
     }
 }
@@ -65,5 +65,11 @@ export default {
 <style lang="scss" scoped>
     .cat-item {
         list-style-type: none;
+    }
+    .img-book {
+        width: 220px;
+    }
+    .book-name {
+        text-align: center;
     }
 </style>

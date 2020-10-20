@@ -3,7 +3,7 @@
     <!--UNLOGGED-->
     <span v-if="!$auth.check()" v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
       <router-link  :to="{ name : route.path }" :key="key">
-        {{route.name}} 
+        {{route.name}}
       </router-link>
     </span>
     <!--LOGGED USER-->
@@ -126,7 +126,7 @@
   }
 
   .m-b-md {
-    margin-bottom: 30px0;
+    margin-bottom: 30px;
   }
   .head_har{
     background-color: #f6f7f9;
@@ -192,12 +192,12 @@
     margin-bottom:10px
   }
 
-  #commentBox li { 
-    list-style:none; 
+  #commentBox li {
+    list-style:none;
     padding:10px; border-bottom:1px solid #ddd
   }
   .commet_form{
-    padding:10px; 
+    padding:10px;
     margin-bottom:10px
   }
   .commentHand{

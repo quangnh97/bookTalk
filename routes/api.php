@@ -53,6 +53,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     // category
     Route::resource('categories', CategoryController::class);
     Route::get('/booksInCategory','CategoryController@booksInCategory');
+
+    // book
+    Route::resource('book', BooksController::class);
+    Route::get('/readOnline','BooksController@readOnline');
+
+
     //add comments
     Route::post('addComment', 'CommentsController@addComment');
     //delete comments
@@ -97,7 +103,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('newMessage','MessagesController@newMessage');
     Route::post('sendNewMessage', 'MessagesController@sendNewMessage');
     // Route::post('/sendMessage', 'MessagesController@sendMessage');
-    
+
     //
     Route::get('/contacts', 'ContactsController@get');
     // lay ds tin nhan theo user_from
@@ -116,3 +122,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('socket', 'SocketController@index');
     Route::post('sendmessage', 'SocketController@sendMessage');
+
+    Route::get('/getDownload', 'BooksController@getDownload');
+
+    Route::get('/categoryHome','CategoryController@categoryHome');
