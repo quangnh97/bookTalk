@@ -8893,6 +8893,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     auth: {
@@ -8901,25 +8961,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      url: ''
+      categories: []
     };
   },
   created: function created() {
-    this.readOnline();
+    this.getListCategories();
   },
   methods: {
-    readOnline: function readOnline() {// axios.get('/readOnline', {
-      //     params: {
-      //         id: this.bookId,
-      //     },
-      // })
-      // .then(response => {
-      //     console.log(response.data);
-      //     this.url = response.data[0].fileName;
-      // })
-      // .catch(function (error) {
-      //     console.log(error);
-      // });
+    getListCategories: function getListCategories() {
+      var _this = this;
+
+      axios.get('/categories').then(function (response) {
+        console.log(response.data);
+        _this.categories = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -50156,16 +50213,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div")
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("quang co len!")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -50293,16 +50343,125 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "table-item " }, [
+      _c(
+        "table",
+        { staticClass: "table table-bordered" },
+        [
+          _c("tr", { staticClass: "row-text" }, [
+            _c("th", [_vm._v("Id")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Tên thể loại")]),
+            _vm._v(" "),
+            _c("th", { staticClass: "active" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn add",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showModalCreateFree()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-plus" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.categories, function(category) {
+            return _c("tr", { key: _vm.prod.id }, [
+              _c("td", { staticClass: "color-column" }, [
+                _vm._v(
+                  "\n                   " +
+                    _vm._s(category.id) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "status-column" }, [
+                _vm._v(_vm._s(category.name))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "active" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn edit",
+                    on: {
+                      click: function($event) {
+                        return _vm.showModalEditFree(_vm.prod)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-pencil-alt" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn delete",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#deleteStatus"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.showModalDeleteStatus(_vm.prod.id, _vm.model)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-eraser" })]
+                )
+              ])
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.numberPage >= 2
+        ? _c(
+            "div",
+            { staticClass: "overflow-auto" },
+            [
+              _c("paginate", {
+                attrs: {
+                  "page-count": _vm.numberPage,
+                  "page-range": 3,
+                  "margin-pages": 2,
+                  "click-handler": _vm.paginateFreeItem,
+                  "prev-text": _vm.$t("index.prev"),
+                  "next-text": _vm.$t("index.nextPaginate"),
+                  "container-class": "pagination",
+                  "page-class": "page-item",
+                  "prev-class": "page-item",
+                  "next-class": "page-item",
+                  "page-link-class": "page-link-item",
+                  "prev-link-class": "page-link-item",
+                  "next-link-class": "page-link-item",
+                  "active-class": "active-class",
+                  "hide-prev-next": true
+                },
+                model: {
+                  value: _vm.pageNum,
+                  callback: function($$v) {
+                    _vm.pageNum = $$v
+                  },
+                  expression: "pageNum"
+                }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("quang co len!")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
