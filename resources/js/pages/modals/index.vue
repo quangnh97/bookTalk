@@ -3,6 +3,7 @@
     <modal-create-category />
       <modal-delete></modal-delete>
       <modal-edit-category/>
+      <modal-create-book/>
   </div>
 </template>
 
@@ -10,11 +11,13 @@
 import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
 import ModalDelete from '../../components/modals/ModalDelete';
 import ModalEditCategory from '../../components/modals/ModalEditCategory';
+import ModalCreateBook from '../../components/modals/ModalCreateBook';
 export default {
   components: {
     ModalCreateCategory,
       ModalDelete,
-      ModalEditCategory
+      ModalEditCategory,
+      ModalCreateBook
   },
 };
 </script>

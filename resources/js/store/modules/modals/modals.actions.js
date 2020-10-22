@@ -5,6 +5,12 @@ export const actions = {
   hideModalCreateCategory({ commit }) {
     commit('HIDE_MODAL_CREATE_CATEGORY');
   },
+    showModalCreateBook({ commit }) {
+        commit('SHOW_MODAL_CREATE_BOOK');
+    },
+    hideModalCreateBook({ commit }) {
+        commit('HIDE_MODAL_CREATE_BOOK');
+    },
     showModalEditCategory({ commit }, payload) {
         commit('SHOW_MODAL_EDIT_CATEGORY', payload);
     },
@@ -18,5 +24,6 @@ export const actions = {
     hideModalDelete({ commit }) {
         commit('HIDE_MODAL_DELETE');
     },
+
 
 };

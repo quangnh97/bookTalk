@@ -40,7 +40,7 @@ class CategoryController extends Controller
         ->join('book', 'book.id', '=', 'book_category.book_id')
         ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
         ->where('book_category.category_id', $id)
-        ->select( 'book.id','book.name','book_profile.pic')
+        ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
         ->paginate(10);
 
         return response()->json([
