@@ -14,6 +14,7 @@ import ModalDelete from '../../components/modals/ModalDelete';
 import ModalEditCategory from '../../components/modals/ModalEditCategory';
 import ModalCreateBook from '../../components/modals/ModalCreateBook';
 import ModalEditBook from '../../components/modals/ModalEditBook';
+
 export default {
   components: {
     ModalCreateCategory,

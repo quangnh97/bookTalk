@@ -48,6 +48,7 @@
                             data-toggle="modal"
                             data-target="#deleteStatus"
                             @click="showModalDeleteBook(book.id)"
+
                         >
                             <i class="fas fa-eraser" />
                         </button>

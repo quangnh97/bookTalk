@@ -23,6 +23,7 @@
                 <label for="pic" class="lb">Ảnh bìa </label>
                 <input type="file" placeholder="" class="description" id="pic" @change="handleUploadImg" >
                 <img v-if="pic" class="avatar1" :src="pic" alt="">
+
             </div>
             <div class="md-form" style="margin-top: 10px;">
                 <label for="author" class="lb">Tác giả </label>
@@ -30,11 +31,13 @@
             </div>
             <div class="md-form" style="margin-top: 10px;">
                 <label for="file" class="lb">File pdf </label>
+
                 <input type="file" class="file" id="file" @change="handleUploadFile">
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
           <button class="btn btn-primary seeMore" aria-label="Close" aria-hidden="true" @click="createBook()">Done</button>
+
         </div>
       </div>
     </div>
@@ -114,6 +117,7 @@ export default {
               this.file = e.target.result;
           };
       }
+
   },
 };
 </script>
