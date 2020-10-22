@@ -2,16 +2,19 @@
   <div>
     <modal-create-category />
       <modal-delete></modal-delete>
+      <modal-edit-category/>
   </div>
 </template>
 
 <script>
 import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
 import ModalDelete from '../../components/modals/ModalDelete';
+import ModalEditCategory from '../../components/modals/ModalEditCategory';
 export default {
   components: {
     ModalCreateCategory,
       ModalDelete,
+      ModalEditCategory
   },
 };
 </script>

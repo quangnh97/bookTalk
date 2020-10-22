@@ -76,6 +76,8 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
+    import ModalDelete from '../../components/modals/ModalDelete';
+    import ModalEditCategory from '../../components/modals/ModalEditCategory';
     import EventBus from '../../app';
     export default {
         props: {
@@ -91,11 +93,18 @@
                 pageNum: 1,
                 numberPage: 1, // so trang
                 onePage: 4,
+                model: 'category',
             }
         },
         created() {
             this.getListCategories();
             EventBus.$on(ModalCreateCategory.CREATE_CATEGORY, () => {
+                this.getListCategories();
+            });
+            EventBus.$on(ModalDelete.DELETE_CATEGORY, () => {
+                this.getListCategories();
+            });
+            EventBus.$on(ModalEditCategory.EDIT_CATEGORY, () => {
                 this.getListCategories();
             });
         },
@@ -121,6 +130,11 @@
                         console.log(error);
                     });
             },
+
+            showModalDeleteCategory(id){
+                const payload = { id: id, model: this.model };
+                this.showModalDelete(payload);
+            }
 
         }
     }

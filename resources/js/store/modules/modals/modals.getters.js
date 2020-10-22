@@ -11,4 +11,10 @@ export const getters = {
     model: (state) => {
         return state.model;
     },
+    category: (state) => {
+        return state.show_modal_edit_category.category;
+    },
+    isShowingModalEditCategory: (state) => {
+        return state.show_modal_edit_category.show;
+    },
 };

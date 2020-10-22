@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class CategoryController extends Controller
 {
@@ -111,7 +112,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = DB::table('category')->where('id',$id)
+            ->update(['name' => $request->name]);
+        return response()->json([
+            'success' => true,
+            'data' => $update
+        ]);
     }
 
     /**
@@ -122,6 +128,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Log::info('category ' . $id);
+        DB::table('category')
+            ->where('id', $id)
+            ->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
