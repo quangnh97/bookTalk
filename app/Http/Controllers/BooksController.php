@@ -78,7 +78,11 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        Log::info($request->pic);
+//        $pic = $request->pic->getClientOriginalName();
+        $imageData = base64_decode($request->pic);
+
+
     }
 
     /**
@@ -123,6 +127,11 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('book')
+            ->where('id', $id)
+            ->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
