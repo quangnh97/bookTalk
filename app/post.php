@@ -12,11 +12,11 @@ class post extends Model
   }
 
   public function likes(){
-    return $this->hasMany(likes::class,'posts_id');
+    return $this->hasMany(likes::class,'post_id');
   }
-	
+
 	public function comments(){
-    return $this->hasMany(comments::class,'posts_id');
+    return $this->hasMany(comments::class,'post_id');
   }
 
   public function files() {

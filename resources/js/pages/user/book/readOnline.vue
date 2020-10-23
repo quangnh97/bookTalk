@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-9 col-sm-12 col-xs-12 center-con">
+<div class=" container">
     <div class="row">
         <iframe class="pdf" :src="'../file/' + url" style="width: 100%; height: 100%; border: none;"></iframe>
     </div>

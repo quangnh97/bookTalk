@@ -43,7 +43,7 @@ class PostsController extends Controller
   public function updatePost($id, Request $request){
     $updatePost = DB::table('posts')->where('id',$id)
     ->update(['content' => $request->updatedContent,]);
-    
+
     if($updatePost){
       return post::with('user','likes','comments')
       ->orderBy('created_at','DESC')->get();
@@ -51,20 +51,20 @@ class PostsController extends Controller
   }
 
   public function likePost($id){
-    $likePostAuth = DB::table('likes')->where('posts_id',$id)->where('user_id', Auth::user()->id)->get();
-  
+    $likePostAuth = DB::table('likes')->where('post_id',$id)->where('user_id', Auth::user()->id)->get();
+
     $test = 1;
     if(count($likePostAuth)) {
       $test = 0;
     }
     if($test) {
       $likePost = DB::table('likes')->insert([
-        'posts_id' => $id,
+        'post_id' => $id,
         'user_id' => Auth::user()->id,
         'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
       ]);
     }
-    
+
     return post::with('user','likes','comments')->orderBy('created_at','DESC')->get();
   }
 
@@ -86,7 +86,7 @@ class PostsController extends Controller
 
     // decode: convert sang binary de send in network an eazy way
     $decode = base64_decode($exploded[1]);
-  
+
     // duong dan cho thu muc image
     $filename = str_random() . "." . $ext;
 
@@ -112,6 +112,7 @@ class PostsController extends Controller
   // save image when up post
   public function saveImg(Request $request){
     $img = $request->get('image');
+
     // remove extra parts
     $exploded = explode(",",$img);
     // extention

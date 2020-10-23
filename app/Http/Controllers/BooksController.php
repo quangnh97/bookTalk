@@ -78,11 +78,40 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-//        Log::info($request->pic);
-//        $pic = $request->pic->getClientOriginalName();
-        $imageData = base64_decode($request->pic);
+        Log::info( 'image  ' . $request->pic);
+        $image =  $request->pic->getClientOriginalName();
+        $request->pic->move(public_path('images/books'), $image);
 
+        Log::info( 'file ' . $request->file);
+        $fileName =  $request->file->getClientOriginalName();
+        $request->file->move(public_path('file'), $fileName);
 
+        $book = DB::table('book')
+            ->insertGetId([
+                'name' => $request->name,
+                'description' => $request->description,
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        $book_profile = DB::table('book_profile')
+            ->insert([
+                'book_id' => $book,
+                'pic' => $image,
+                'author' => $request->author,
+                'totalView' => 0,
+                'hasPdf' => 1,
+                'fileName' => $fileName,
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        $book_category = DB::table('book_category')
+            ->insert([
+                'book_id' => $book,
+                'category_id' => $request->category_id,
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        return response()->json([
+            'success' => true,
+            'book' => $book,
+        ]);
     }
 
     /**

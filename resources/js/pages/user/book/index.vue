@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-9 col-sm-12 col-xs-12 center-con">
+<div class="container content-container">
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-primary">
@@ -94,5 +94,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped >
-
+    .img-book {
+        height: 350px !important;
+    }
 </style>

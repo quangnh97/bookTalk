@@ -1,26 +1,45 @@
 <template>
-<div class="col-md-9 col-sm-12 col-xs-12 center-con">
+<div class=" container">
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     {{categoryName}}
                 </div>
-                <div class="panel-body">
+                <div class="panel-body category-list">
                     <div class="col-xs-6 col-md-3 col-sm-3 ebook"
                         v-for="(book, index) in books"
                         :key="index"
                     >
                         <router-link :to="{name:'book', params: { id: book.id } }">
-                            <img :src="'../images/books/'+ book.pic" :alt="book.name" class="img-book">
+                            <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book">
                             <p class="book-name">{{book.name}}</p>
                         </router-link>
                     </div>
                 </div>
+                <div v-if="numberPage>=2" class="overflow-auto">
+                    <paginate
+                        v-model="pageNum"
+                        :page-count="numberPage"
+                        :page-range="3"
+                        :margin-pages="2"
+                        :click-handler="clickPaginate"
+                        prev-text="<<"
+                        next-text=">>"
+                        :container-class="'pagination'"
+                        :page-class="'page-item'"
+                        :prev-class="'page-item'"
+                        :next-class="'page-item'"
+                        :page-link-class="'page-link-item'"
+                        :prev-link-class="'page-link-item'"
+                        :next-link-class="'page-link-item'"
+                        :active-class="'active-class'"
+                        :hide-prev-next="true"
+                    />
+                </div>
             </div>
         </div>
         <div class="col-md-3 sidebar">
-
         </div>
     </div>
 </div>
@@ -38,6 +57,11 @@ export default {
             categoryId: '',
             categoryName: '',
             books:[],
+            pageNumber: this.$route.params.pageNumber, // page so bao nhieu
+            // pageNum: Number(this.$route.params.pageNumber),
+            pageNum: 1,
+            numberPage: 1, // so trang
+            onePage: 4,
         }
     },
 
@@ -47,8 +71,11 @@ export default {
         console.log('auth' + this.auth);
     },
     methods: {
-        getListBooks(){
-            axios.get('/booksInCategory', {
+        clickPaginate(pageNum) {
+            this.getListBooks(pageNum);
+        },
+        getListBooks(pageNum){
+            axios.get('/booksInCategory?page=' + pageNum , {
                 params: {
                 categoryId: this.categoryId,
                 },
@@ -57,6 +84,7 @@ export default {
                 console.log(response.data);
                 this.books = response.data.books.data;
                 this.categoryName = response.data.name[0].name;
+                this.numberPage = response.data.books.last_page;
             })
             .catch(function (error) {
                 console.log(error);
@@ -65,14 +93,31 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
     .cat-item {
         list-style-type: none;
     }
     .img-book {
-        width: 220px;
+        height: 180px;
     }
     .book-name {
         text-align: center;
     }
+    .content-container {
+        margin-top: 20px;
+        height: 550px;
+        overflow-y: scroll;
+    }
+    .category-list {
+        overflow-y: scroll;
+        height: 420px;
+    }
+    .book-name {
+        height: 60px;
+    }
+    .pagination {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
 </style>

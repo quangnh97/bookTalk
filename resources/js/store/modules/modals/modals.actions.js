@@ -5,8 +5,8 @@ export const actions = {
   hideModalCreateCategory({ commit }) {
     commit('HIDE_MODAL_CREATE_CATEGORY');
   },
-    showModalCreateBook({ commit }) {
-        commit('SHOW_MODAL_CREATE_BOOK');
+    showModalCreateBook({ commit },categoryId) {
+        commit('SHOW_MODAL_CREATE_BOOK',categoryId);
     },
     hideModalCreateBook({ commit }) {
         commit('HIDE_MODAL_CREATE_BOOK');

@@ -22,7 +22,7 @@
             <div class="md-form" style="margin-top: 10px;">
                 <label for="pic" class="lb">Ảnh bìa </label>
                 <input type="file" placeholder="" class="description" id="pic" @change="handleUploadImg" >
-                <img v-if="pic" class="avatar1" :src="pic" alt="">
+                <img v-if="picNew" class="avatar1" :src="picNew" width="100" style="margin: 10px;">
 
             </div>
             <div class="md-form" style="margin-top: 10px;">
@@ -47,13 +47,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import EventBus from '../../app';
-const CREATE_CATEGORY = 'CREATE_CATEGORY';
+const CREATE_BOOK = 'CREATE_BOOK';
 export default {
-    CREATE_CATEGORY: CREATE_CATEGORY,
+    CREATE_BOOK: CREATE_BOOK,
   data() {
     return {
         name: '',
         pic: '',
+        picNew: '',
         description: '',
         author: '',
         file: '',
@@ -64,6 +65,7 @@ export default {
   },
   computed: {
     ...mapGetters('modals', ['isShowingModalCreateBook']),
+    ...mapGetters('modals', ['categoryId']),
   },
   watch: {
     isShowingModalCreateNote: function(newVal, oldVal) {
@@ -87,6 +89,7 @@ export default {
           formData.append('description', this.description);
           formData.append('author', this.author);
           formData.append('file', this.file);
+          formData.append('category_id', this.categoryId);
 
           this.$http.post('/book', formData, {
                   headers: {
@@ -94,7 +97,16 @@ export default {
                   },
               }
           ).then(response => {
-
+              if(response.data.success){
+                  EventBus.$emit(CREATE_BOOK, 'create_category');
+                  this.name =  '',
+                  this.pic =  '',
+                  this.picNew =  '',
+                  this.description =  '',
+                  this.author =  '',
+                  this.file = '',
+                  this.hide();
+              }
           })
           .catch(function (error) {
               console.log(error);
@@ -105,7 +117,7 @@ export default {
           const reader = new FileReader();
           reader.readAsDataURL(this.pic);
           reader.onload = (e) => {
-              this.pic = e.target.result;
+              this.picNew = e.target.result;
           };
       },
 
@@ -113,9 +125,6 @@ export default {
           this.file = e.target.files[0];
           const reader = new FileReader();
           reader.readAsDataURL(this.file);
-          reader.onload = (e) => {
-              this.file = e.target.result;
-          };
       }
 
   },
@@ -125,5 +134,9 @@ export default {
 <style lang="scss" scoped>
     .errors {
         color: red;
+    }
+    .modal-body {
+        overflow-y: scroll;
+        height: 400px;
     }
 </style>

@@ -16,11 +16,11 @@ class CommentsController extends Controller
 		$id = $request->id;
 
         $createComment= DB::table('comments')
-        ->insert(['comment' =>$comment, 'user_id' => Auth::user()->id, 'posts_id' => $id,
+        ->insert(['comment' =>$comment, 'user_id' => Auth::user()->id, 'post_id' => $id,
         'created_at' =>\Carbon\Carbon::now()->toDateTimeString()]);
 
         //$comments = comments::with('user')->get();
-        
+
         if($createComment){
         return post::with('user','likes','comments.user')->orderBy('created_at','DESC')->get();
             //return comments::with('user')->get();
@@ -32,7 +32,7 @@ class CommentsController extends Controller
     }
 
     public function updateComment($id, Request $request){
-        
+
     }
 
 

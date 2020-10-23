@@ -5,11 +5,12 @@ export const mutations = {
   HIDE_MODAL_CREATE_CATEGORY: (state) => {
     state.show_modal_create_category = false;
   },
-    SHOW_MODAL_CREATE_BOOK: (state) => {
-        state.show_modal_create_book = true;
-    },
     HIDE_MODAL_CREATE_BOOK: (state) => {
-        state.show_modal_create_book = false;
+        state.show_modal_create_book.show = false;
+    },
+    SHOW_MODAL_CREATE_BOOK: (state, categoryId) => {
+        state.show_modal_create_book.show = true;
+        state.show_modal_create_book.categoryId = categoryId;
     },
     SHOW_MODAL_DELETE: (state, payload) => {
         state.show_modal_delete = true;

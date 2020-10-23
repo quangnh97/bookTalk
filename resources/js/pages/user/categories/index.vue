@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-9 col-sm-12 col-xs-12 center-con">
+<div class="container content-container">
     <ul class="center-block row">
         <li class="cat-item col-xs-12 col-md-4 col-sm-6"
             v-for="(category, index) in categories"

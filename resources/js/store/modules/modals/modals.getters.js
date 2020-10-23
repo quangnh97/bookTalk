@@ -3,7 +3,10 @@ export const getters = {
     return state.show_modal_create_category;
   },
     isShowingModalCreateBook: (state) => {
-        return state.show_modal_create_book;
+        return state.show_modal_create_book.show;
+    },
+    categoryId: (state) => {
+        return state.show_modal_create_book.categoryId;
     },
     isShowingModalDelete: (state) => {
         return state.show_modal_delete;

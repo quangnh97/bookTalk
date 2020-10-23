@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Newfeed from './pages/user/Dashboard'
 import Dashboard from './pages/Home'
 import AdminDashboard from './pages/admin/Dashboard'
 import Profile from './pages/user/Profile'
@@ -49,6 +50,12 @@ const routes = [
       auth: true
     }
   },
+    {
+        path: '/newfeed', name: 'dashboard', component: Newfeed,
+        meta: {
+            auth: true
+        }
+    },
 
   {
     path: '/profile/:slug', component: Profile,

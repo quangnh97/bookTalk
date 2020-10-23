@@ -25,7 +25,9 @@
                         {{ book.id }}
                     </td>
                     <td class="name-column">{{ book.name }}</td>
-                    <td class="pic-column">{{ book.pic }}</td>
+                    <td class="pic-column">
+                        <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" width="100" >
+                    </td>
                     <td class="author-column">{{ book.author }}</td>
                     <td class="active">
                         <button
@@ -80,7 +82,7 @@
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import ModalCreateCategory from '../../components/modals/ModalCreateCategory';
+    import ModalCreateBook from '../../components/modals/ModalCreateBook';
     import ModalDelete from '../../components/modals/ModalDelete';
     import ModalEditCategory from '../../components/modals/ModalEditCategory';
     import EventBus from '../../app';
@@ -106,7 +108,7 @@
         created() {
             this.categoryId = this.$route.params.id;
             this.getListBooks();
-            EventBus.$on(ModalCreateCategory.CREATE_CATEGORY, () => {
+            EventBus.$on(ModalCreateBook.CREATE_BOOK, () => {
                 this.getListBooks();
             });
             EventBus.$on(ModalDelete.DELETE_CATEGORY, () => {
@@ -137,6 +139,7 @@
                         console.log(response.data);
                         this.books = response.data.books.data;
                         this.categoryName = response.data.name[0].name;
+                        this.numberPage = response.data.books.last_page;
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -214,7 +217,7 @@
         .pic-column {
             width: 20%;
             text-align: left;
-            padding: 2.2% 0 0 3%;;
+            padding: 2.2%;
         }
         .author-column {
             width: 20%;
