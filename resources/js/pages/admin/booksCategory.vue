@@ -10,14 +10,11 @@
                     <th>Ảnh bìa</th>
                     <th>Tác giả</th>
                     <th class="active">
-                        <button
-                            type="button"
-                            class="btn add"
-                            @click="showModalCreateBook(categoryId)"
+                        <a-button type="primary"
+                                  @click="showModalCreateBook(categoryId)"
                         >
                             <i class="fas fa-plus" />
-
-                        </button>
+                        </a-button>
                     </th>
                 </tr>
                 <tr v-for="book in books" :key="book.id">
@@ -30,30 +27,23 @@
                     </td>
                     <td class="author-column">{{ book.author }}</td>
                     <td class="active">
-                        <button
-                            class="btn edit"
-                            @click="showModalEditBook(book)"
+                        <a-button type="primary"
+                          @click="showModalEditBook(book)"
                         >
                             <i class="fas fa-pencil-alt" />
-                        </button>
+                        </a-button>
+
                         <router-link :to="{name:'book', params: { id: book.id } }">
-                            <button
-                                class="btn books" style="background-color: #F5C63C;"
-                            >
+                            <a-button>
                                 <i class="fas fa-book"></i>
-                            </button>
+                            </a-button>
                         </router-link>
-
-                        <button
-                            type="button"
-                            class="btn delete"
-                            data-toggle="modal"
-                            data-target="#deleteStatus"
+                        <a-button
+                            type="danger"
                             @click="showModalDeleteBook(book.id)"
-
-                        >
+                            >
                             <i class="fas fa-eraser" />
-                        </button>
+                        </a-button>
                     </td>
                 </tr>
             </table>
@@ -235,10 +225,17 @@
                 background-color: #3fe576;
             }
             .edit {
-                background-color: #efefef;
+                color: #fff;
+                background-color: #1890ff;
+                border-color: #1890ff;
+                text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+                box-shadow: 0 2px 0 rgba(0,0,0,.045);
             }
             .delete {
                 background-color: #ff8400;
+            }
+            .books {
+
             }
         }
     }

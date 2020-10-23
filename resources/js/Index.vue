@@ -9,8 +9,8 @@
         </router-link>
       </span>
             <search v-if="$auth.check()" ></search>
-            <invitation v-if="$auth.check()"></invitation>
-            <messNotify v-if="$auth.check()" v-bind:countTotalUnread="countTotalUnread"></messNotify>
+<!--            <invitation v-if="$auth.check()"></invitation>-->
+<!--            <messNotify v-if="$auth.check()" v-bind:countTotalUnread="countTotalUnread"></messNotify>-->
             <navigationMenu v-bind:auth="user" ></navigationMenu>
         </div>
     </div>

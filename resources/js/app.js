@@ -11,7 +11,9 @@ import auth from './auth'
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
-
+import 'ant-design-vue/dist/antd.css';
+import { Button } from 'ant-design-vue';
+Vue.use(Button);
 
 import router from './router'
 import store from './store';
@@ -29,6 +31,8 @@ export default EventBus;
 
 import Paginate from 'vuejs-paginate';
 Vue.component('paginate', Paginate);
+
+
 
 axios.defaults.baseURL = `http://127.0.0.1:8008/api`
 Vue.use(VueAuth, auth)
