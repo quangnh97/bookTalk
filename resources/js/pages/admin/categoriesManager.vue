@@ -8,14 +8,11 @@
                     <th>Id</th>
                     <th>Tên thể loại</th>
                     <th class="active">
-                        <button
-                            type="button"
-                            class="btn add"
+                        <a-button type="primary"
                             @click="showModalCreateCategory()"
                         >
                             <i class="fas fa-plus" />
-
-                        </button>
+                        </a-button>
                     </th>
                 </tr>
                 <tr v-for="category in categories" :key="category.id">
@@ -24,29 +21,24 @@
                     </td>
                     <td class="status-column">{{ category.name }}</td>
                     <td class="active">
-                        <button
-                            class="btn edit"
-                            @click="showModalEditCategory(category)"
+                        <a-button type="primary"
+                                  @click="showModalEditCategory(category)"
                         >
                             <i class="fas fa-pencil-alt" />
-                        </button>
+                        </a-button>
+
                         <router-link :to="{name:'books-category', params: { id: category.id } }">
-                            <button
-                                class="btn books" style="background-color: #F5C63C;"
-                            >
+                            <a-button>
                                 <i class="fas fa-book"></i>
-                            </button>
+                            </a-button>
                         </router-link>
 
-                        <button
-                            type="button"
-                            class="btn delete"
-                            data-toggle="modal"
-                            data-target="#deleteStatus"
+                        <a-button
+                            type="danger"
                             @click="showModalDeleteCategory(category.id)"
                         >
                             <i class="fas fa-eraser" />
-                        </button>
+                        </a-button>
                     </td>
                 </tr>
             </table>

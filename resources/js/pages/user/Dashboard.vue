@@ -28,7 +28,7 @@
 
             <div v-else>
               <div class="upload_wrap">
-                <textarea v-model="content" id="postText" class="form-control" placeholder="what's on your mind ?"></textarea>
+                <textarea v-model="content" id="postText" class="form-control" placeholder="Tìm kiếm sách"></textarea>
                 <b @click="removeImg" style="right:0;position:absolute;cursor:pointer">Cancel</b>
                 <img :src="image" style="width:100px; margin:10px;"/><br>
               </div>
@@ -84,7 +84,7 @@
                         <button type="button" class="btn btn-success" data-dismiss="modal" @click="updatePost(post.id)">Save Changes</button>
                       </div>
                     </div>
-                  </div>   
+                  </div>
                 </div>
                 <!-- Modal -->
               </div>
@@ -154,14 +154,14 @@
     created(){
       axios.get('/posts')
       .then(response => {
-        console.log(response); 
+        console.log(response);
         this.posts = response.data;
         Vue.filter('myOwnTime', function(value){
           return moment(value).fromNow();
         });
       })
       .catch(function (error) {
-        console.log(error); 
+        console.log(error);
       });
 
       // show info user
@@ -174,7 +174,7 @@
         console.log(error);
       });
 
-      // truyen bien user 
+      // truyen bien user
       this.$emit("ComponentDashboard", this.user);
 
     },
@@ -193,18 +193,18 @@
       //     this.errors = error.response.data.errors;
       //   })
       // },
-      
+
 
       addPost(){
         axios.post('/addPost', { content: this.content })
         .then( (response) =>{
           this.content="";
-          console.log('saved successfully'); 
+          console.log('saved successfully');
           this.posts = response.data;
           console.log(this.posts);
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
@@ -212,11 +212,11 @@
         //alert(id);
         axios.get('/deletePost/' + id)
         .then(response => {
-          console.log(response); 
-          this.posts = response.data; 
+          console.log(response);
+          this.posts = response.data;
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
@@ -224,11 +224,11 @@
       openModal(id){
         axios.get('/posts/' + id)
         .then(response => {
-          console.log(response); 
-          this.updatedContent = response.data; 
+          console.log(response);
+          this.updatedContent = response.data;
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
@@ -239,16 +239,16 @@
         })
         .then( (response) =>{
           this.content="";
-          console.log('Changes saved successfully'); 
+          console.log('Changes saved successfully');
           this.posts = response.data;
           // console.log(app.posts);
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
-      // up anh 
+      // up anh
       onFileChange(e){
         var files = e.target.files || e.dataTransfer.files; // fetch FileList object: tìm nạp đối tượng FileList
         console.log(files);
@@ -269,11 +269,11 @@
       likePost(id){
         axios.get('/likePost/' + id)
         .then(response => {
-          console.log(response); 
-          this.posts = response.data; 
+          console.log(response);
+          this.posts = response.data;
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
@@ -283,7 +283,7 @@
           id: post.id
         })
         .then(response => {
-          console.log('saved successfully'); 
+          console.log('saved successfully');
           if(response.status===200){
             // console.log(response.data[key]);
             this.posts = response.data;
@@ -307,7 +307,7 @@
           content: this.content
         })
         .then( (response) =>{
-          console.log('saved successfully'); 
+          console.log('saved successfully');
           this.image= "";
           this.content = "";
           if(response.status===200){
@@ -315,7 +315,7 @@
           }
         })
         .catch(function (error) {
-          console.log(error); 
+          console.log(error);
         });
       },
 
@@ -339,5 +339,5 @@
 <style scoped >
 .show {
   opacity: 1;
-} 
+}
 </style>

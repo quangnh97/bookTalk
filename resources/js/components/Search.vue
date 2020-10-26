@@ -38,7 +38,6 @@
                 console.log(this.results);
             });
         },
-
     },
   }
 </script>
