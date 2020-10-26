@@ -35,11 +35,11 @@ class HomeController extends Controller
     public function search(Request $request){
         $qry = $request->qry;
         if($qry!=""){
-            $users= DB::table('users')
+            $books= DB::table('book')
             ->where('name', 'like', '%'. $qry . '%')
             ->get();
 
-            return $users;
+            return $books;
         }
 
     }
