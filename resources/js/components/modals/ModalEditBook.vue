@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="{modal: true,show: isShowingModalEditCategory}"
+        :class="{modal: true,show: isShowingModalEditBook}"
     >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -12,7 +12,32 @@
                 </div>
                 <div class="modal-body mx-3">
                     <div class="md-form" style="margin-top: 10px;">
-                        <input v-model="name" placeholder="Ten the loai" class="name" style="width: 100%">
+                        <label for="name" class="lb">Tên sách </label>
+                        <input v-model="name" placeholder="" class="name" id="name" style="width: 100%">
+                    </div>
+                    <div class="md-form" style="margin-top: 10px;">
+                        <label for="description" class="lb">Mô tả </label>
+                        <textarea
+                            v-model="description"
+                            cols="40"
+                            rows="3"
+                            class="description" id="description" style="width: 100%"
+                        />
+                    </div>
+                    <div class="md-form" style="margin-top: 10px;">
+                        <label for="pic" class="lb">Ảnh bìa </label>
+                        <input type="file" placeholder="" class="description" id="pic" @change="handleUploadImg" >
+                        <img v-if="picNew" class="avatar1" :src="picNew" width="100" style="margin: 10px;">
+
+                    </div>
+                    <div class="md-form" style="margin-top: 10px;">
+                        <label for="author" class="lb">Tác giả </label>
+                        <input v-model="author" placeholder="" class="author" id="author" style="width: 100%">
+                    </div>
+                    <div class="md-form" style="margin-top: 10px;">
+                        <label for="file" class="lb">File pdf </label>
+
+                        <input type="file" class="file" id="file" @change="handleUploadFile">
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
@@ -35,14 +60,19 @@
         data() {
             return {
                 name: '',
+                pic: '',
+                picNew: '',
+                description: '',
+                author: '',
+                file: '',
                 errors: {
                     name: '',
                 },
             };
         },
         computed: {
-            ...mapGetters('modals', ['isShowingModalEditCategory']),
-            ...mapGetters('modals', ['category']),
+            ...mapGetters('modals', ['isShowingModalEditBook']),
+            ...mapGetters('modals', ['idBookEdit']),
         },
         watch: {
             isShowingModalEditCategory: function() {

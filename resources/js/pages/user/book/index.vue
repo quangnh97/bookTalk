@@ -30,6 +30,9 @@
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Đọc Online
                                 </router-link>
                             </button>
+                        </div>
+                    </div>
+                    <div class="gioi_thieu_sach text-justify">
                             <div id="commentBox">
                                 <div class="commet_form">
                                     <!-- send comment-->
@@ -38,9 +41,9 @@
                                 </div>
                                 <ul v-for="comment in comments" :key="comment.id">
                                     <li >
-                                        <p v-if="comment.user">
-                                            <a :href="comment.user.slug">
-                                                <img  :src="'../images/' + comment.user.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
+                                        <p v-if="comment.name">
+                                            <a>
+                                                <img  :src="'../images/' + comment.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
                                                 {{ comment.name }}
                                             </a>
                                             {{comment.comment}}
@@ -48,9 +51,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
                     </div>
-                    <div class="gioi_thieu_sach text-justify"></div>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@ export default {
 
     methods: {
         getBook(){
-            axios.get('/book', {
+            axios.get('/books', {
                 params: {
                     id: this.bookId,
                 },
@@ -109,9 +110,7 @@ export default {
                     console.log('comments');
                     if(response.status===200){
                         console.log(response);
-                        // this.posts = response.data;
-                        // this.comment = "";
-                        // app.comments = response.data;
+                        this.comments = response.data.comments;
                     }
                 })
                 .catch(function (error) {
@@ -120,22 +119,23 @@ export default {
         },
 
         addComment(){
-            // axios.post('/addComment', {
-            //     comment: this.comment,
-            //     id: this.bookId
-            // })
-            //     .then(response => {
-            //         console.log('saved successfully');
-            //         if(response.status===200){
-            //             // console.log(response.data[key]);
-            //             this.posts = response.data;
-            //             this.comment = "";
-            //             // app.comments = response.data;
-            //         }
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
+            axios.post('/addComment', {
+                comment: this.comment,
+                id: this.bookId
+            })
+                .then(response => {
+                    console.log('saved successfully');
+                    if(response.status===200){
+                        // console.log(response.data[key]);
+                        console.log(response.data);
+                        this.getComments();
+                        this.comment = "";
+                        // app.comments = response.data;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
 
         dowloadFile() {
@@ -156,5 +156,9 @@ export default {
 <style lang="scss" scoped >
     .img-book {
         height: 350px !important;
+    }
+    .content-container {
+        height: 850px;
+        overflow-y: scroll;
     }
 </style>

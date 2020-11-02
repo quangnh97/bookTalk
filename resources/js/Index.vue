@@ -357,10 +357,8 @@
     box-shadow: 0 8px 6px -6px #666;
   }
   #commentBox{
-    background-color:#ddd;
     padding:10px;
     width:99%; margin:0 auto;
-    background-color:#F6F7F9;
     padding:10px;
     margin-bottom:10px
   }

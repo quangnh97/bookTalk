@@ -28,7 +28,7 @@
                     <td class="author-column">{{ book.author }}</td>
                     <td class="active">
                         <a-button type="primary"
-                          @click="showModalEditBook(book)"
+                          @click="showEditBook(book.id)"
                         >
                             <i class="fas fa-pencil-alt" />
                         </a-button>
@@ -101,10 +101,10 @@
             EventBus.$on(ModalCreateBook.CREATE_BOOK, () => {
                 this.getListBooks();
             });
-            EventBus.$on(ModalDelete.DELETE_CATEGORY, () => {
+            EventBus.$on(ModalDelete.DELETE_BOOK, () => {
                 this.getListBooks();
             });
-            EventBus.$on(ModalEditCategory.EDIT_CATEGORY, () => {
+            EventBus.$on(ModalEditCategory.EDIT_BOOK, () => {
                 this.getListBooks();
             });
         },
@@ -139,6 +139,10 @@
             showModalDeleteBook(id){
                 const payload = { id: id, model: this.model };
                 this.showModalDelete(payload);
+            },
+
+            showEditBook(id){
+                this.showModalEditBook(id);
             }
 
         }

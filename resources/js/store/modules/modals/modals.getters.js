@@ -23,4 +23,12 @@ export const getters = {
     isShowingModalEditCategory: (state) => {
         return state.show_modal_edit_category.show;
     },
+
+    isShowingModalEditBook: (state) => {
+        return state.show_modal_edit_book.show;
+    },
+    idBookEdit: (state) => {
+        return state.show_modal_edit_book.id;
+    },
+
 };

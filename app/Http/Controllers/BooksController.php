@@ -156,6 +156,7 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
+        Log::info( 'delete ' . $id);
         DB::table('book')
             ->where('id', $id)
             ->delete();

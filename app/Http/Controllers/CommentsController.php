@@ -15,9 +15,10 @@ class CommentsController extends Controller
 	public function addComment(Request $request){
 		$comment = $request->comment;
 		$id = $request->id;
-
+        Log::info( 'id ' . $request->id);
+        Log::info( 'id ' . $comment);
         $createComment= DB::table('comments')
-        ->insert(['comment' =>$comment, 'user_id' => Auth::user()->id, 'post_id' => $id,
+        ->insert(['comment' =>$comment, 'user_id' => Auth::user()->id, 'book_id' => $id,
         'created_at' =>\Carbon\Carbon::now()->toDateTimeString()]);
 
         //$comments = comments::with('user')->get();

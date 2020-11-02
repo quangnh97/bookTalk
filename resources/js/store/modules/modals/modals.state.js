@@ -12,4 +12,9 @@ export const state = {
         show: false,
         category: {},
     },
+
+    show_modal_edit_book: {
+        show: false,
+        id: '',
+    },
 };

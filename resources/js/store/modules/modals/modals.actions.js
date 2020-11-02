@@ -25,5 +25,11 @@ export const actions = {
         commit('HIDE_MODAL_DELETE');
     },
 
+    showModalEditBook({ commit }, id) {
+        commit('SHOW_MODAL_EDIT_BOOK', id);
+    },
+    hideModalEditBook({ commit }) {
+        commit('HIDE_MODAL_EDIT_BOOK');
+    },
 
 };

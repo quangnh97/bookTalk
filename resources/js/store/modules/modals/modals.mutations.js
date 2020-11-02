@@ -28,4 +28,12 @@ export const mutations = {
     HIDE_MODAL_EDIT_CATEGORY: (state) => {
         state.show_modal_edit_category.show = false;
     },
+
+    SHOW_MODAL_EDIT_BOOK: (state, id) => {
+        state.show_modal_edit_book.show = true;
+        state.show_modal_edit_book.id = id;
+    },
+    HIDE_MODAL_EDIT_BOOK: (state) => {
+        state.show_modal_edit_book.show = false;
+    },
 };

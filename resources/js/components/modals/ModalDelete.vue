@@ -68,7 +68,7 @@ export default {
              .then(response => {
                  if(response.data.success){
                      console.log(response.data.success);
-                     EventBus.$emit(DELETE_CATEGORY, 'delete_category');
+                     EventBus.$emit(DELETE_BOOK, 'delete_book');
                      this.hide();
                  }
              })
