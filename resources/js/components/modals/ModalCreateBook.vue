@@ -17,7 +17,12 @@
           </div>
             <div class="md-form" style="margin-top: 10px;">
                 <label for="description" class="lb">Mô tả </label>
-                <input v-model="description" placeholder="" class="description" id="description" style="width: 100%">
+                <textarea
+                    v-model="description"
+                    cols="40"
+                    rows="3"
+                    class="description" id="description" style="width: 100%"
+                />
             </div>
             <div class="md-form" style="margin-top: 10px;">
                 <label for="pic" class="lb">Ảnh bìa </label>

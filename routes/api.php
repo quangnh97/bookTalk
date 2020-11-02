@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
     //add comments
+    Route::get('comments', 'CommentsController@comments');
+
     Route::post('addComment', 'CommentsController@addComment');
     //delete comments
     Route::post('deleteComment/{id}','CommentsController@deleteComment');

@@ -21,7 +21,7 @@
                                 Vui lòng chọn định dạng file để tải hoặc đọc online.
                             </div>
                             <button target="_blank" type="button" class="btn btn-danger">
-                                <a :href="'/getDownload?id='+ book.id" class="download">
+                                <a :href="'/getDownload?id='+ book.id" class="download" download>
                                     PDF
                                 </a>
                             </button>
@@ -30,6 +30,24 @@
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Đọc Online
                                 </router-link>
                             </button>
+                            <div id="commentBox">
+                                <div class="commet_form">
+                                    <!-- send comment-->
+                                    <textarea v-model="comment" class="form-control" ></textarea>
+                                    <button class="btn btn-success mt-1" @click="addComment()">Send</button>
+                                </div>
+                                <ul v-for="comment in comments" :key="comment.id">
+                                    <li >
+                                        <p v-if="comment.user">
+                                            <a :href="comment.user.slug">
+                                                <img  :src="'../images/' + comment.user.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
+                                                {{ comment.name }}
+                                            </a>
+                                            {{comment.comment}}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="gioi_thieu_sach text-justify"></div>
@@ -52,13 +70,16 @@ export default {
         return {
             bookId: '',
             book:{},
-            categoryName:''
+            categoryName:'',
+            comment: '',
+            comments: [],
         }
     },
 
     created() {
         this.bookId = this.$route.params.id;
         this.getBook();
+        this.getComments();
     },
 
     methods: {
@@ -76,6 +97,45 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+        },
+
+        getComments() {
+            axios.get('/comments', {
+                params: {
+                    id: this.bookId,
+                },
+            })
+                .then(response => {
+                    console.log('comments');
+                    if(response.status===200){
+                        console.log(response);
+                        // this.posts = response.data;
+                        // this.comment = "";
+                        // app.comments = response.data;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+        addComment(){
+            // axios.post('/addComment', {
+            //     comment: this.comment,
+            //     id: this.bookId
+            // })
+            //     .then(response => {
+            //         console.log('saved successfully');
+            //         if(response.status===200){
+            //             // console.log(response.data[key]);
+            //             this.posts = response.data;
+            //             this.comment = "";
+            //             // app.comments = response.data;
+            //         }
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
         },
 
         dowloadFile() {

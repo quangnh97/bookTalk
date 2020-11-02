@@ -93,7 +93,15 @@ export default {
     }
 }
 </script>
-<style lang="scss" >
+<style lang="scss" scoped >
+    .ebook {
+        position: relative;
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
     .cat-item {
         list-style-type: none;
     }

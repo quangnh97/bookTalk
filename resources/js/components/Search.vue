@@ -1,14 +1,15 @@
 <template>
     <!-- {{-- search --}} -->
-    <div class="top-left links search" style=" width: 300px;">
-        <input type="text" class="form-control" placeholder="what are you looking for?"
+    <div class="top-left search" style=" width: 300px;">
+        <input type="text" class="form-control input-search" placeholder="Tìm kiếm sách?"
         v-model="qry" v-on:keyup="autoComplete" />
-
-        <div class="panel-footer" v-if="results.length >= 0"
-        style="position:relative; z-index:1000; border:1px solid #ccc; background:#fff; padding: 0px 15px;">
+        <i class="fas fa-search"></i>
+        <div class="panel-results" v-if="results.length >= 0"
+        style="position:relative; z-index:1000; border:1px solid #ccc; background:#fff;">
         <p v-for="result in results">
-            <!-- <a :href="'{{url('profile')}}/' +  result.slug"> -->
-            <router-link :to="'/profile/' + result.slug"><b v-on:click="results=[]">{{result.name}} </b></router-link>
+            <router-link :to="{name:'book', params: { id: result.id } }">
+                <b v-on:click="results=[]">{{result.name}} </b>
+            </router-link>
         </p>
         </div>
     </div>
@@ -41,3 +42,40 @@
     },
   }
 </script>
+<style lang="scss" scoped>
+    .fa-search {
+        position: absolute;
+        top: 20px;
+        left: .7em;
+        margin-top: -9px;
+        pointer-events: none;
+    }
+    .search {
+        margin-top: 5px;
+        input {
+            padding-left: 40px;
+        }
+        p {
+            padding: 5px 15px;
+            margin: 0px !important;
+        }
+        p:hover {
+            background: #E6F7FE;
+        }
+
+        a {
+            color: var(--primary-text);
+            font-weight: bold;
+        }
+
+        .input-search:hover, .input-search:focus  {
+            border-color: rgb(64 169 255);
+            border-right-width: 1px!important;
+        }
+
+        .input-search:focus {
+            box-shadow: 0 0 0 2px rgba(24,144,255,.2);
+        }
+
+    }
+</style>

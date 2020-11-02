@@ -13,7 +13,8 @@ import '@fortawesome/fontawesome-free/js/all.js';
 
 import 'ant-design-vue/dist/antd.css';
 import { Button } from 'ant-design-vue';
-Vue.use(Button);
+import { Input } from 'ant-design-vue';
+Vue.use(Button, Input);
 
 import router from './router'
 import store from './store';

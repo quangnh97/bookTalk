@@ -8,6 +8,7 @@ use App\post;
 use App\comments;
 use App\User;
 use DB;
+use Log;
 
 class CommentsController extends Controller
 {
@@ -25,6 +26,19 @@ class CommentsController extends Controller
         return post::with('user','likes','comments.user')->orderBy('created_at','DESC')->get();
             //return comments::with('user')->get();
         }
+    }
+
+    public function comments(Request $request){
+        Log::info( 'id ' . $request->id);
+        $comments = DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.user_id')
+            ->where('comments.book_id', $request->id)
+            ->select( 'comments.id','comments.comment','comments.user_id','users.name', 'users.pic')
+            ->get();
+        return response()->json([
+            'success' => true,
+            'comments' => $comments,
+        ]);
     }
 
     public function deleteComment($id, Request $request){

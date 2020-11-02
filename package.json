@@ -30,7 +30,7 @@
         "bootstrap-sass": "^3.4.1",
         "es6-promise": "^4.2.8",
         "express": "^4.17.1",
-        "ioredis": "^4.17.3",
+        "ioredis": "^4.19.0",
         "laravel-echo": "^1.9.0",
         "moment": "^2.29.1",
         "node-sass": "^4.14.1",
