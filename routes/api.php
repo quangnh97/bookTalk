@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('users', 'UserController@index')->middleware('isAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
 
+
+    Route::get('/getDownload', 'BooksController@getDownload');
     // posts
     Route::get('/posts', function () {
         return App\post::with('user','likes','comments.user')
@@ -126,6 +128,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('socket', 'SocketController@index');
     Route::post('sendmessage', 'SocketController@sendMessage');
 
-    Route::get('/getDownload', 'BooksController@getDownload');
+
 
     Route::get('/categoryHome','CategoryController@categoryHome');

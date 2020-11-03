@@ -1,6 +1,6 @@
 <template>
     <div >
-        <p>quang co len!</p>
+
     </div>
 </template>
 

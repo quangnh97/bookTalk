@@ -5,7 +5,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h4 class="modal-label w-100 font-weight-bold">Chỉnh sửa thể loại</h4>
+                    <h4 class="modal-label w-100 font-weight-bold">Chỉnh sửa sách</h4>
                     <button type="button" class="close" aria-label="Close" @click="hide()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -13,12 +13,12 @@
                 <div class="modal-body mx-3">
                     <div class="md-form" style="margin-top: 10px;">
                         <label for="name" class="lb">Tên sách </label>
-                        <input v-model="name" placeholder="" class="name" id="name" style="width: 100%">
+                        <input v-model="book.name" placeholder="" class="name" id="name" style="width: 100%">
                     </div>
                     <div class="md-form" style="margin-top: 10px;">
                         <label for="description" class="lb">Mô tả </label>
                         <textarea
-                            v-model="description"
+                            v-model="book.description"
                             cols="40"
                             rows="3"
                             class="description" id="description" style="width: 100%"
@@ -32,7 +32,7 @@
                     </div>
                     <div class="md-form" style="margin-top: 10px;">
                         <label for="author" class="lb">Tác giả </label>
-                        <input v-model="author" placeholder="" class="author" id="author" style="width: 100%">
+                        <input v-model="book.author" placeholder="" class="author" id="author" style="width: 100%">
                     </div>
                     <div class="md-form" style="margin-top: 10px;">
                         <label for="file" class="lb">File pdf </label>
@@ -59,12 +59,7 @@
         EDIT_CATEGORY: EDIT_CATEGORY,
         data() {
             return {
-                name: '',
-                pic: '',
-                picNew: '',
-                description: '',
-                author: '',
-                file: '',
+                book:{},
                 errors: {
                     name: '',
                 },
@@ -75,14 +70,35 @@
             ...mapGetters('modals', ['idBookEdit']),
         },
         watch: {
-            isShowingModalEditCategory: function() {
-                this.name = this.category.name;
+            isShowingModalEditBook: function() {
+                this.getBook();
+                console.log(this.idBookEdit);
             },
+        },
+        created() {
+
         },
         methods: {
             ...mapActions({
-                hide: 'modals/hideModalEditCategory',
+                hide: 'modals/hideModalEditBook',
             }),
+
+            getBook(){
+                axios.get('/books', {
+                    params: {
+                        id: this.idBookEdit,
+                    },
+                })
+                    .then(response => {
+                        console.log(response.data);
+                        this.book = response.data.book[0];
+                        // this.categoryName = response.data.category[0].name;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
             editCategory() {
                 let hasErrors = false;
                 axios.put('/categories/' +  this.category.id,{
@@ -100,7 +116,22 @@
                         console.log(error);
                     });
             },
+            handleUploadImg(e) {
+                this.pic = e.target.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(this.pic);
+                reader.onload = (e) => {
+                    this.picNew = e.target.result;
+                };
+            },
+
+            handleUploadFile(e) {
+                this.file = e.target.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(this.file);
+            }
         },
+
     };
 </script>
 

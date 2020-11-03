@@ -4,8 +4,8 @@
         <input type="text" class="form-control input-search" placeholder="Tìm kiếm sách?"
         v-model="qry" v-on:keyup="autoComplete" />
         <i class="fas fa-search"></i>
-        <div class="panel-results" v-if="results.length >= 0"
-        style="position:relative; z-index:1000; border:1px solid #ccc; background:#fff;">
+        <div class="panel-results" v-if="results.length > 0"
+        style="position:relative; z-index:1000; border:1px solid #ccc; background:#fff; height: 400px;">
         <p v-for="result in results">
             <router-link :to="{name:'book', params: { id: result.id } }">
                 <b v-on:click="results=[]">{{result.name}} </b>
@@ -75,6 +75,10 @@
 
         .input-search:focus {
             box-shadow: 0 0 0 2px rgba(24,144,255,.2);
+        }
+
+        .panel-results {
+            overflow-y: scroll;
         }
 
     }

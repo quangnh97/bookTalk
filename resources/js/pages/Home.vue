@@ -11,8 +11,10 @@
                     :key="index"
                 >
                     <router-link :to="{name:'category', params: { id: category.id } }">
-                        <span class="glyphicon glyphicon-folder-open" style="padding-right: 10px;"></span>
-                        {{  category.name}}
+                        <a-button>
+                            <span class="glyphicon glyphicon-folder-open" style="padding-right: 10px;"></span>
+                            {{  category.name}}
+                        </a-button>
                     </router-link>
 
                 </li>
@@ -20,12 +22,11 @@
         </div>
         <div class="text-center mt-4 all-book">
             <router-link :to="{name:'categories' }" class="btn-ebook view-all-book" title="Xem tất cả sách">
+                <a-button type="primary">
                 Xem tất cả sách
+                </a-button>
             </router-link>
         </div>
-
-
-      </div>
     </div>
   </div>
 </template>
@@ -88,8 +89,8 @@ export default {
     .all-book {
         text-transform: uppercase;
         .view-all-book {
-            border: 1px solid rgb(204 204 204);
-            border-radius: 15px;
+            /*border: 1px solid rgb(204 204 204);*/
+            /*border-radius: 15px;*/
             padding: 8px;
             color: rgb(48 151 209);
         }
@@ -107,10 +108,10 @@ export default {
         display: inline-block;
         margin-bottom: 20px;
         a {
-            border: 1px solid rgb(204 204 204);
-            border-radius: 15px;
+            /*border: 1px solid rgb(204 204 204);*/
+            /*border-radius: 15px;*/
             padding: 8px;
-            margin-right: 20px;
+            margin-right: 10px;
             color: rgb(0 0 0) !important;
         }
     }

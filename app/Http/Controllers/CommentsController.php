@@ -20,13 +20,15 @@ class CommentsController extends Controller
         $createComment= DB::table('comments')
         ->insert(['comment' =>$comment, 'user_id' => Auth::user()->id, 'book_id' => $id,
         'created_at' =>\Carbon\Carbon::now()->toDateTimeString()]);
-
+        return response()->json([
+            'success' => true,
+        ]);
         //$comments = comments::with('user')->get();
 
-        if($createComment){
-        return post::with('user','likes','comments.user')->orderBy('created_at','DESC')->get();
+//        if($createComment){
+//        return post::with('user','likes','comments.user')->orderBy('created_at','DESC')->get();
             //return comments::with('user')->get();
-        }
+//        }
     }
 
     public function comments(Request $request){

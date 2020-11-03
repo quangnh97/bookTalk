@@ -181,6 +181,11 @@
   body {
     overflow-y: hidden;
   }
+  #content {
+      background-color: white;
+      margin-top: 70px;
+  }
+
 
   .top-menu {
     position: fixed;
@@ -188,6 +193,9 @@
     left: 0px;
     right: 0px;
     z-index: 1000;
+      background-color: white;
+      height: 50px;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px 0px;
   }
   .msg_main{
     background-color:#ffff;
@@ -260,7 +268,7 @@
   }
 
   html, body {
-    background-color: #ddd;
+    /*background-color: #ddd;*/
     font-family: 'Raleway', sans-serif;
     font-weight: 100;
     margin: 0;

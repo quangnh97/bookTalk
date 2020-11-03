@@ -6,8 +6,10 @@
             :key="index"
         >
             <router-link :to="{name:'category', params: { id: category.id } }">
-                <span class="glyphicon glyphicon-folder-open"></span>
-                {{category.name}}
+                <a-button>
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    {{category.name}}
+                </a-button>
             </router-link>
 
         </li>
@@ -50,5 +52,11 @@ export default {
 <style lang="scss" scoped>
     .cat-item {
         list-style-type: none;
+    }
+    .cat-item {
+        padding: 10px 10px;
+    }
+    .glyphicon {
+        padding-right: 10px;
     }
 </style>

@@ -11,7 +11,7 @@ class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -54,12 +54,13 @@ class BooksController extends Controller
 
     public function getDownload(Request $request)
     {
+        Log::info('getDownload1');
         $id = $request->id;
         $book = DB::table('book_profile')
             ->where('book_id', $id)
             ->select('fileName')
             ->get();
-        Log::info($book[0]->fileName);
+//        Log::info($book);
         $fileName = $book[0]->fileName;
         $file= public_path(). "/file/" . $fileName;
         Log::info($file);
@@ -122,7 +123,7 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

@@ -37,8 +37,10 @@
 import { mapActions, mapGetters } from 'vuex';
 import EventBus from "../../app";
 const DELETE_CATEGORY = 'DELETE_CATEGORY';
+const DELETE_BOOK = 'DELETE_BOOK';
 export default {
     DELETE_CATEGORY: DELETE_CATEGORY,
+    DELETE_BOOK: DELETE_BOOK,
   computed: {
     ...mapGetters('modals', ['isShowingModalDelete']),
     ...mapGetters('modals', ['id']),

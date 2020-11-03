@@ -20,10 +20,11 @@
                                 <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                                 Vui lòng chọn định dạng file để tải hoặc đọc online.
                             </div>
-                            <button target="_blank" type="button" class="btn btn-danger">
-                                <a :href="'/getDownload?id='+ book.id" class="download" download>
-                                    PDF
-                                </a>
+                            <button target="_blank" type="button" class="btn btn-danger" @click="dowloadFile()">
+                                Download
+<!--                                <a :href="'/api/getDownload?id='+ book.id" class="download" >-->
+<!--                                    PDF-->
+<!--                                </a>-->
                             </button>
                             <button target="_blank" type="button" class="btn btn-warning btn-md">
                                 <router-link :to="{name:'bookOnline', params: { id: book.id } }">
@@ -77,10 +78,19 @@ export default {
         }
     },
 
+    watch: {
+        $route() {
+            this.bookId = this.$route.params.id;
+            this.getBook();
+            this.getComments();
+        }
+    },
+
     created() {
         this.bookId = this.$route.params.id;
         this.getBook();
         this.getComments();
+        console.log('111111');
     },
 
     methods: {
@@ -139,16 +149,20 @@ export default {
         },
 
         dowloadFile() {
-            axios.get('/getDownload', {
-                params: {
-                    id: this.bookId,
-                },
-            })
-                .then(response => {
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            axios({
+                url: '/getDownload?id=' + this.book.id,
+                method: 'GET',
+                responseType: 'blob',
+            }).then((response) => {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                console.log(response.data);
+                var fileLink = document.createElement('a');
+
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', this.book.fileName);
+                document.body.appendChild(fileLink);
+                fileLink.click();
+            });
         }
     }
 }
@@ -156,9 +170,5 @@ export default {
 <style lang="scss" scoped >
     .img-book {
         height: 350px !important;
-    }
-    .content-container {
-        height: 850px;
-        overflow-y: scroll;
     }
 </style>

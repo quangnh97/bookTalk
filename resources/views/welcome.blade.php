@@ -20,8 +20,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        body {
+            height: auto;
+            overflow-y: scroll;
+        }
+    </style>
 </head>
-<body>
+<body style="height: auto; overflow-y: scroll;">
 <div id="app">
     <index></index>
 </div>

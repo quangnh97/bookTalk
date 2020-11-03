@@ -96,7 +96,7 @@ export default {
           formData.append('file', this.file);
           formData.append('category_id', this.categoryId);
 
-          this.$http.post('/book', formData, {
+          this.$http.post('/books', formData, {
                   headers: {
                       'Content-Type': 'multipart/form-data',
                   },
