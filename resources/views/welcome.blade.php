@@ -24,6 +24,7 @@
         body {
             height: auto;
             overflow-y: scroll;
+            color: black !important;
         }
     </style>
 </head>

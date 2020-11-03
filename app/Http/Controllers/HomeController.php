@@ -31,16 +31,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    // search user
-    public function search(Request $request){
-        $qry = $request->qry;
-        if($qry!=""){
-            $books= DB::table('book')
-            ->where('name', 'like', '%'. $qry . '%')
-            ->get();
-
-            return $books;
-        }
-
-    }
 }

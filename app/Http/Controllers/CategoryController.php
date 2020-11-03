@@ -112,6 +112,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Log::info('update' . $id);
         $update = DB::table('category')->where('id',$id)
             ->update(['name' => $request->name]);
         return response()->json([

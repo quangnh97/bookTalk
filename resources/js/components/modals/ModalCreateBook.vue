@@ -87,7 +87,6 @@ export default {
     }),
       createBook() {
         let hasErrors = false;
-
           const formData = new FormData();
           formData.append('name', this.name);
           formData.append('pic', this.pic);

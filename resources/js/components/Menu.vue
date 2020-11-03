@@ -2,25 +2,34 @@
   <div class="top-right links" style="float: right;" >
     <!--UNLOGGED-->
     <span v-if="!$auth.check()" v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
-      <router-link  :to="{ name : route.path }" :key="key">
-        {{route.name}}
-      </router-link>
+        <a-button type="primary" class="login">
+          <router-link  :to="{ name : route.path }" :key="key">
+            {{route.name}}
+          </router-link>
+        </a-button>
     </span>
     <!--LOGGED USER-->
     <span v-if="$auth.check(1)" v-for="(route, key) in routes.user" v-bind:key="route.path">
-      <router-link  :to="{ name : route.path }" :key="key">
-        {{route.name}}
-      </router-link>
+        <a-button type="primary">
+          <router-link  :to="{ name : route.path }" :key="key">
+            {{route.name}}
+          </router-link>
+        </a-button>
     </span>
     <!--LOGGED ADMIN-->
     <span v-if="$auth.check(2)" v-for="(route, key) in routes.admin" v-bind:key="route.path">
-      <router-link  :to="{ name : route.path }" :key="key">
-        {{route.name}}
-      </router-link>
+        <a-button type="primary">
+          <router-link  :to="{ name : route.path }" :key="key">
+            {{route.name}}
+          </router-link>
+        </a-button>
+
     </span>
     <!--LOGOUT-->
     <span v-if="$auth.check()">
-      <a href="#" @click="logout()">Logout</a>
+            <a-button type="primary" icon="poweroff" :loading="iconLoading" @click="logout()">
+              Logout
+            </a-button>
     </span>
   </div>
 </template>
@@ -45,14 +54,14 @@
           // LOGGED USER
           user: [
             {
-              name: 'Dashboard',
+              name: 'Home',
               path: 'dashboard'
             }
           ],
           // LOGGED ADMIN
           admin: [
             {
-              name: 'Dashboard',
+              name: 'Home',
               path: 'admin.dashboard'
             }
           ]
@@ -71,11 +80,16 @@
 </script>
 
 <style lang="scss" scoped>
+
   html, body {
     background-color: #ddd;
     font-family: 'Raleway', sans-serif;
     font-weight: 100;
     margin: 0;
+  }
+
+  .login {
+      margin-right: 10px;
   }
   .top_bar{
     position:relative; width:99%; top:0; padding:5px; margin:0 5
@@ -107,8 +121,8 @@
     font-size: 84px;
   }
   .links>span>a {
-    color: #636b6f !important;
-    padding: 0 25px;
+    /*color: #636b6f !important;*/
+    /*padding: 0 25px;*/
     font-size: 12px;
     font-weight: 600;
     letter-spacing: .1rem;

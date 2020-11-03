@@ -74,7 +74,7 @@
     import { mapActions, mapGetters } from 'vuex';
     import ModalCreateBook from '../../components/modals/ModalCreateBook';
     import ModalDelete from '../../components/modals/ModalDelete';
-    import ModalEditCategory from '../../components/modals/ModalEditCategory';
+    import ModalEditBook from '../../components/modals/ModalEditBook';
     import EventBus from '../../app';
     export default {
         props: {
@@ -104,7 +104,7 @@
             EventBus.$on(ModalDelete.DELETE_BOOK, () => {
                 this.getListBooks();
             });
-            EventBus.$on(ModalEditCategory.EDIT_BOOK, () => {
+            EventBus.$on(ModalEditBook.EDIT_BOOK, () => {
                 this.getListBooks();
             });
         },

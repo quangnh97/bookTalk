@@ -17,6 +17,14 @@ class BooksController extends Controller
     public function index(Request $request)
     {
         $id = $request->id;
+        $book_profile_view = DB::table('book_profile')->where('book_id',$id)
+                            ->select('totalView')->first();
+        Log::info('index' . $book_profile_view->totalView);
+        $book_profile = DB::table('book_profile')->where('book_id',$id)
+            ->update([
+                'totalView' => $book_profile_view->totalView + 1,
+            ]);
+
         $book = DB::table('book')
             ->join('book_profile', 'book_profile.book_id', '=', 'book.id')
             ->where('book.id', $id)
@@ -49,6 +57,19 @@ class BooksController extends Controller
             ->select('fileName')
             ->get();
         return $book;
+    }
+
+
+    // search
+    public function search(Request $request){
+        $qry = $request->qry;
+        if($qry!=""){
+            $books= DB::table('book')
+                ->where('name', 'like', '%'. $qry . '%')
+                ->get();
+
+            return $books;
+        }
     }
 
 
@@ -116,6 +137,40 @@ class BooksController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        Log::info('update book' . $id);
+
+        Log::info( 'image  ' . $request->pic);
+        $image =  $request->pic->getClientOriginalName();
+        $request->pic->move(public_path('images/books'), $image);
+
+        Log::info( 'file ' . $request->file);
+        $fileName =  $request->file->getClientOriginalName();
+        $request->file->move(public_path('file'), $fileName);
+
+        $update = DB::table('book')->where('id',$id)
+            ->update(['name' => $request->name,'description' => $request->description]);
+
+        $book_profile = DB::table('book_profile')->where('book_id',$id)
+            ->update([
+                'pic' => $image,
+                'author' => $request->author,
+                'fileName' => $fileName,
+            ]);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -133,18 +188,6 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         //
     }

@@ -17,20 +17,23 @@
                             <h5>Lượt xem : {{ book.totalView }}</h5>
                             <p>{{book.description}}</p>
                             <div class="alert alert-info">
-                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                                Vui lòng chọn định dạng file để tải hoặc đọc online.
+                                <i class="fas fa-shopping-cart" style="    padding-right: 5px;"></i>
+                                Mua sách tại những trang thương mại điện tử uy tín ( Tiki, Shopee, Fahasa, Vinabook,...)
                             </div>
-                            <button target="_blank" type="button" class="btn btn-danger" @click="dowloadFile()">
-                                Download
-<!--                                <a :href="'/api/getDownload?id='+ book.id" class="download" >-->
-<!--                                    PDF-->
-<!--                                </a>-->
-                            </button>
-                            <button target="_blank" type="button" class="btn btn-warning btn-md">
+                            <a-button>
+                                <i class="far fa-thumbs-up" @click="likeBook()"></i>
+                                <span> Thích </span>
+                                <b>({{likes}})</b>
+                            </a-button>
+
+                            <a-button type="primary" shape="round" icon="download" :size="size" @click="dowloadFile()" >
+                            Download
+                            </a-button>
+                            <a-button type="danger">
                                 <router-link :to="{name:'bookOnline', params: { id: book.id } }">
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Đọc Online
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="    padding-right: 5px;"></span>Đọc Online
                                 </router-link>
-                            </button>
+                            </a-button>
                         </div>
                     </div>
                     <div class="gioi_thieu_sach text-justify">
@@ -38,17 +41,19 @@
                                 <div class="commet_form">
                                     <!-- send comment-->
                                     <textarea v-model="comment" class="form-control" ></textarea>
-                                    <button class="btn btn-success mt-1" @click="addComment()">Send</button>
+                                    <button class="btn btn-success mt-1" style="    margin-top: 5px;" @click="addComment()">Send</button>
                                 </div>
-                                <ul v-for="comment in comments" :key="comment.id">
+                                <ul v-for="comment in comments" :key="comment.id" class="comment-ul">
                                     <li >
-                                        <p v-if="comment.name">
-                                            <a>
+                                        <div v-if="comment.name" style="    background-color: #F0F2F5; border-radius: 15px;">
+                                            <a style="color: black;font-weight: bold;">
                                                 <img  :src="'../images/' + comment.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
                                                 {{ comment.name }}
                                             </a>
-                                            {{comment.comment}}
-                                        </p>
+                                            <p style="margin-left: 50px; padding: 0px 10px 10px 0px;">
+                                                {{comment.comment}}
+                                            </p>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -90,7 +95,6 @@ export default {
         this.bookId = this.$route.params.id;
         this.getBook();
         this.getComments();
-        console.log('111111');
     },
 
     methods: {
@@ -108,6 +112,10 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+        },
+
+        likeBook() {
+
         },
 
         getComments() {
@@ -171,4 +179,20 @@ export default {
     .img-book {
         height: 350px !important;
     }
+
+    #commentBox {
+        margin-top: 20px;
+    }
+    .comment-ul {
+        li {
+            list-style-type: none;
+        }
+    }
+
+    .info {
+        h5 {
+            color: black !important;
+        }
+    }
+
 </style>

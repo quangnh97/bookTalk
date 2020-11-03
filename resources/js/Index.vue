@@ -8,7 +8,7 @@
           BookTalk
         </router-link>
       </span>
-            <search v-if="$auth.check()" ></search>
+            <search></search>
 <!--            <invitation v-if="$auth.check()"></invitation>-->
 <!--            <messNotify v-if="$auth.check()" v-bind:countTotalUnread="countTotalUnread"></messNotify>-->
             <navigationMenu v-bind:auth="user" ></navigationMenu>
@@ -67,8 +67,6 @@
         messages: [],
         contacts: [],
         countTotalUnread : 0,
-        selectedContact: null,
-
       }
     },
     ready: function() {
@@ -177,7 +175,7 @@
 
 </script>
 
-<style>
+<style scoped>
   body {
     overflow-y: hidden;
   }

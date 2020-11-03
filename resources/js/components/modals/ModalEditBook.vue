@@ -44,7 +44,7 @@
                     <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" @click="hide()">
                         Hủy
                     </button>
-                    <button class="btn btn-primary seeMore" aria-label="Close" aria-hidden="true" @click="editCategory()">Done</button>
+                    <button class="btn btn-primary seeMore" aria-label="Close" aria-hidden="true" @click="editBook()">Done</button>
                 </div>
             </div>
         </div>
@@ -54,15 +54,16 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import EventBus from '../../app';
-    const EDIT_CATEGORY = 'EDIT_CATEGORY';
+    const EDIT_BOOK = 'EDIT_BOOK';
     export default {
-        EDIT_CATEGORY: EDIT_CATEGORY,
+        EDIT_BOOK: EDIT_BOOK,
         data() {
             return {
                 book:{},
                 errors: {
                     name: '',
                 },
+                picNew:'',
             };
         },
         computed: {
@@ -99,36 +100,45 @@
                     });
             },
 
-            editCategory() {
+            editBook() {
                 let hasErrors = false;
-                axios.put('/categories/' +  this.category.id,{
-                        name: this.name,
-                })
-                    .then(response => {
-                        console.log(response.data);
-                        if(response.data.success){
-                            EventBus.$emit(EDIT_CATEGORY, 'create_category');
+                const formData = new FormData();
+                formData.append('name', this.book.name);
+                formData.append('pic', this.book.pic);
+                formData.append('description', this.book.description);
+                formData.append('author', this.book.author);
+                formData.append('file', this.book.fileName);
+                // formData.append('category_id', this.categoryId);
+
+                this.$http.post('/books/update/'+  this.idBookEdit, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }
+                ).then(response => {
+                    if(response.data.success){
+                        EventBus.$emit(EDIT_BOOK, 'create_category');
                             this.hide();
-                            this.name = '';
-                        }
-                    })
+                    }
+                })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
+
             handleUploadImg(e) {
-                this.pic = e.target.files[0];
+                this.book.pic = e.target.files[0];
                 const reader = new FileReader();
-                reader.readAsDataURL(this.pic);
+                reader.readAsDataURL(this.book.pic);
                 reader.onload = (e) => {
                     this.picNew = e.target.result;
                 };
             },
 
             handleUploadFile(e) {
-                this.file = e.target.files[0];
+                this.book.fileName = e.target.files[0];
                 const reader = new FileReader();
-                reader.readAsDataURL(this.file);
+                reader.readAsDataURL(this.book.fileName);
             }
         },
 
