@@ -6,7 +6,7 @@
                 <div class="panel-body">
                     <div class="row thong_tin_ebook">
                         <div class="col-md-4 cover">
-                            <img :src="'../images/books/'+ book.pic" :alt="book.name" class="img-book">
+                            <img :src="'../images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 214px;">
                         </div>
                         <div class="col-md-8 info">
                             <h1 class="ebook_title text-primary">
@@ -43,19 +43,22 @@
                                     <textarea v-model="comment" class="form-control" ></textarea>
                                     <button class="btn btn-success mt-1" style="    margin-top: 5px;" @click="addComment()">Send</button>
                                 </div>
-                                <ul v-for="comment in comments" :key="comment.id" class="comment-ul">
-                                    <li >
-                                        <div v-if="comment.name" style="    background-color: #F0F2F5; border-radius: 15px;">
-                                            <a style="color: black;font-weight: bold;">
-                                                <img  :src="'../images/' + comment.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
-                                                {{ comment.name }}
-                                            </a>
-                                            <p style="margin-left: 50px; padding: 0px 10px 10px 0px;">
-                                                {{comment.comment}}
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <div style="    margin-top: 10px;">
+                                    <ul v-for="comment in comments" :key="comment.id" class="comment-ul">
+                                        <li >
+                                            <div v-if="comment.name" style="    background-color: #F0F2F5; border-radius: 15px;">
+                                                <a style="color: black;font-weight: bold;">
+                                                    <img  :src="'../images/' + comment.pic" width="32" style="margin:5px; height:32px;" class="img-circle"/>
+                                                    {{ comment.name }}
+                                                </a>
+                                                <p style="margin-left: 50px; padding: 0px 10px 10px 0px;">
+                                                    {{comment.comment}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                     </div>
                 </div>
@@ -80,6 +83,7 @@ export default {
             categoryName:'',
             comment: '',
             comments: [],
+            likes: '',
         }
     },
 
@@ -116,6 +120,24 @@ export default {
 
         likeBook() {
 
+        },
+
+        getLikes() {
+            axios.get('/likes', {
+                params: {
+                    id: this.bookId,
+                },
+            })
+                .then(response => {
+                    console.log('comments');
+                    if(response.status===200){
+                        console.log(response);
+                        this.likes = response.data.likes;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
 
         getComments() {

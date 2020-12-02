@@ -10,7 +10,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body mx-3">
+                <div class="modal-body mx-3" style="    height: 400px;
+    overflow-y: scroll;">
                     <div class="md-form" style="margin-top: 10px;">
                         <label for="name" class="lb">Tên sách </label>
                         <input v-model="book.name" placeholder="" class="name" id="name" style="width: 100%">

@@ -152,17 +152,17 @@
       this.created();
     },
     created(){
-      axios.get('/posts')
-      .then(response => {
-        console.log(response);
-        this.posts = response.data;
-        Vue.filter('myOwnTime', function(value){
-          return moment(value).fromNow();
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      // axios.get('/posts')
+      // .then(response => {
+      //   console.log(response);
+      //   this.posts = response.data;
+      //   Vue.filter('myOwnTime', function(value){
+      //     return moment(value).fromNow();
+      //   });
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
 
       // show info user
       axios.get('/user')

@@ -51,21 +51,21 @@ class PostsController extends Controller
   }
 
   public function likePost($id){
-    $likePostAuth = DB::table('likes')->where('post_id',$id)->where('user_id', Auth::user()->id)->get();
+    // $likePostAuth = DB::table('likes')->where('post_id',$id)->where('user_id', Auth::user()->id)->get();
 
-    $test = 1;
-    if(count($likePostAuth)) {
-      $test = 0;
-    }
-    if($test) {
-      $likePost = DB::table('likes')->insert([
-        'post_id' => $id,
-        'user_id' => Auth::user()->id,
-        'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
-      ]);
-    }
+    // $test = 1;
+    // if(count($likePostAuth)) {
+    //   $test = 0;
+    // }
+    // if($test) {
+    //   $likePost = DB::table('likes')->insert([
+    //     'post_id' => $id,
+    //     'user_id' => Auth::user()->id,
+    //     'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+    //   ]);
+    // }
 
-    return post::with('user','likes','comments')->orderBy('created_at','DESC')->get();
+    // return post::with('user','likes','comments')->orderBy('created_at','DESC')->get();
   }
 
 

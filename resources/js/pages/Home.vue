@@ -27,17 +27,44 @@
                 </a-button>
             </router-link>
         </div>
+        <div style="max-width: 900px;
+            margin: 0 auto; margin-top: 30px;">
+            <carousel 					:perPage="4"
+                                         :autoplay="true"
+                                         :loop="true"
+                                         :autoplayTimeout="5000"
+                                         :navigationEnabled="false"
+                                         :paginationEnabled="true">
+                <slide v-for="book in books" :key="book.id">
+                    <router-link :to="{name:'book', params: { id: book.id } }">
+                        <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="    max-width: 200px;
+    height: 300px;">
+                    </router-link>
+                </slide>
+            </carousel>
+        </div>
+
     </div>
   </div>
 </template>
 
 <script>
+    import { Carousel, Slide } from 'vue-carousel';
 export default {
+    components: {
+        Carousel,
+        Slide
+    },
   data() {
-    return {
-      posts: [],
-      user: {},
+      return {
+        user: {},
         categories:[],
+          books:[],
+          pageNumber: this.$route.params.pageNumber, // page so bao nhieu
+          // pageNum: Number(this.$route.params.pageNumber),
+          pageNum: 1,
+          numberPage: 1, // so trang
+          onePage: 4,
     }
   },
 
@@ -46,19 +73,9 @@ export default {
   },
 
   created() {
-    // posts
-    axios.get('/posts')
-    .then(response => {
-      console.log(response);
-      this.posts = response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
         // the loai
       this.getListCategories();
-
+        this.getListBooks();
     // show info user
     axios.get('/user')
     .then(response => {
@@ -71,6 +88,19 @@ export default {
   },
 
     methods: {
+        getListBooks(pageNum){
+            axios.get('/booksHot')
+                .then(response => {
+                    console.log(response.data);
+                    this.books = response.data.books.data;
+                    this.categoryName = response.data.name[0].name;
+                    this.numberPage = response.data.books.last_page;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
         getListCategories(){
             axios.get('/categoryHome')
                 .then(response => {
@@ -86,6 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
     .all-book {
         text-transform: uppercase;
         .view-all-book {

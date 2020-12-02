@@ -34,6 +34,9 @@ import Paginate from 'vuejs-paginate';
 Vue.component('paginate', Paginate);
 
 
+import VueCarousel from 'vue-carousel';
+
+Vue.use(VueCarousel);
 
 axios.defaults.baseURL = `http://127.0.0.1:8008/api`
 Vue.use(VueAuth, auth)

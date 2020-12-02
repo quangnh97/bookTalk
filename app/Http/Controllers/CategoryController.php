@@ -50,6 +50,22 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function booksHot(Request $request)
+    {
+
+        $books = DB::table('book_category')
+            ->join('book', 'book.id', '=', 'book_category.book_id')
+            ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
+            ->orderBy('book_profile.totalView', 'DESC')
+            ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
+            ->paginate(12);
+
+        return response()->json([
+            'success' => true,
+            'books' => $books,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

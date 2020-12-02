@@ -4,8 +4,8 @@
         <div class="container" style="position: relative;">
             <span style="float: left;" >
         <router-link :to="{name: 'dashboard'}" style="font-size:24px; text-transform: uppercase; text-decoration: none; font-weight: bold;">
-          <img :src="'/images/logoBT.png'" width="40" style="margin:5px;"/>
-          BookTalk
+<!--          <img :src="'/images/logoBT.png'" width="40" style="margin:5px;"/>-->
+          SachHay
         </router-link>
       </span>
             <search></search>

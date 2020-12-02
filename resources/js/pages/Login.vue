@@ -39,14 +39,14 @@
     },
 
     created() {
-      axios.get('/posts')
-      .then(response => {
-        console.log(response);
-        this.posts = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      // axios.get('/posts')
+      // .then(response => {
+      //   console.log(response);
+      //   this.posts = response.data;
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
     },
 
     mounted() {

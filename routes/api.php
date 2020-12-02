@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     // category
     Route::resource('categories', CategoryController::class);
     Route::get('/booksInCategory','CategoryController@booksInCategory');
+    Route::get('/booksHot','CategoryController@booksHot');
     Route::get('/allCategories','CategoryController@allCategories');
 
     // book

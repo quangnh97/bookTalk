@@ -1,8 +1,7 @@
 <template>
     <div >
         <div class="head-ps">QUẢN LÍ THỂ LOẠI</div>
-        <div class="table-item " style="    height: 400px;
-    overflow-y: scroll;">
+        <div class="table-item " >
             <table class="table table-bordered">
                 <tr class="row-text">
                     <th>Id</th>
@@ -134,6 +133,15 @@
 <style lang="scss" scoped >
     .row {
         height: 1000px;
+    }
+    .table-item {
+        height: 400px;
+        overflow-y: scroll;
+    }
+    @media screen and (min-width: 1400px) {
+        .table-item {
+            height: 700px;
+        }
     }
     .head-ps {
         background-color: #fee67a;
