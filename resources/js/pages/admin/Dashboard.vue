@@ -10,17 +10,7 @@
                 <div class="bt-st">
                     <router-link :to="{name:'categories-manager'}">
                         <button type="button" class="btn btn-warning st-sp">
-                            Thể loại sách
-                        </button>
-                    </router-link>
-                </div>
-            </div>
-            <div class="button-setting">
-                <div class="mini-color" />
-                <div class="bt-st">
-                    <router-link :to="{name:'books-manager'}">
-                        <button type="button" class="btn btn-warning st-sp">
-                            Tất cả sách
+                            Thể loại -  Sách
                         </button>
                     </router-link>
                 </div>
@@ -31,6 +21,26 @@
                     <router-link :to="{name:'users-manager'}">
                         <button type="button" class="btn btn-warning st-sp">
                             Quản lí user
+                        </button>
+                    </router-link>
+                </div>
+            </div>
+            <div class="button-setting">
+                <div class="mini-color" />
+                <div class="bt-st">
+                    <router-link :to="{name:'users-comment'}">
+                        <button type="button" class="btn btn-warning st-sp">
+                            Quản lí bình luận
+                        </button>
+                    </router-link>
+                </div>
+            </div>
+            <div class="button-setting">
+                <div class="mini-color" />
+                <div class="bt-st">
+                    <router-link :to="{name:'users-manager'}">
+                        <button type="button" class="btn btn-warning st-sp">
+                            Thống kê
                         </button>
                     </router-link>
                 </div>

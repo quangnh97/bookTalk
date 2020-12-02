@@ -20,8 +20,8 @@
                                 <i class="fas fa-shopping-cart" style="    padding-right: 5px;"></i>
                                 Mua sách tại những trang thương mại điện tử uy tín ( Tiki, Shopee, Fahasa, Vinabook,...)
                             </div>
-                            <a-button>
-                                <i class="far fa-thumbs-up" @click="likeBook()"></i>
+                            <a-button :class="{userLiked : liked}" @click="toggleLike()">
+                                <i class="far fa-thumbs-up" ></i>
                                 <span> Thích </span>
                                 <b>({{likes}})</b>
                             </a-button>
@@ -58,7 +58,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
                     </div>
                 </div>
@@ -69,6 +68,7 @@
 </template>
 
 <script>
+    import io from 'socket.io-client';
 export default {
     props: {
       auth: {
@@ -83,7 +83,8 @@ export default {
             categoryName:'',
             comment: '',
             comments: [],
-            likes: '',
+            liked: false,
+            likes: 0,
         }
     },
 
@@ -98,10 +99,49 @@ export default {
     created() {
         this.bookId = this.$route.params.id;
         this.getBook();
+        this.checkLike();
         this.getComments();
+        this.getLikes();
+        var socket = io('http://localhost:8090',{
+            transports:['websocket'],
+            reconnectionDelay: 10000,
+            reconnectionDelayMax: 30000,
+        });
+        console.log(socket);
+        socket.on('connect', function () {
+            console.log('on connect');
+            console.log(socket.id, socket.io.engine.id, socket.json.id)
+        });
+        socket.on('disconnect', function () {
+            console.log('on disconnect');
+        });
+
+        socket.on(`comment`, (message) => {
+            console.log(message);
+        });
     },
 
     methods: {
+        checkLike(){
+            axios.get('/checkLike', {
+                params: {
+                    idBook: this.bookId,
+                    idUser: this.auth.id,
+                },
+            })
+                .then(response => {
+                    console.log('likes');
+                    if(response.status===200){
+                        console.log(response);
+                        if(response.data.count === 1){
+                            this.liked = true;
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         getBook(){
             axios.get('/books', {
                 params: {
@@ -118,7 +158,24 @@ export default {
             });
         },
 
-        likeBook() {
+        toggleLike() {
+            if(this.liked == false){
+                axios.post('/likeBook', {
+                    idBook: this.bookId,
+                    idUser: this.auth.id,
+                })
+                    .then(response => {
+                        console.log('likeBook');
+                        if(response.status===200){
+                            console.log(response);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+            this.liked = ! this.liked;
+            this.liked ? this.likes++ : this.likes--;
 
         },
 
@@ -128,16 +185,16 @@ export default {
                     id: this.bookId,
                 },
             })
-                .then(response => {
-                    console.log('comments');
-                    if(response.status===200){
-                        console.log(response);
-                        this.likes = response.data.likes;
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            .then(response => {
+                console.log('likes');
+                if(response.status===200){
+                    console.log(response);
+                    this.likes = response.data.total;
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
 
         getComments() {
@@ -200,6 +257,11 @@ export default {
 <style lang="scss" scoped >
     .img-book {
         height: 350px !important;
+    }
+    .userLiked {
+        background-color: red;
+        color: black;
+        border-color: black;
     }
 
     #commentBox {

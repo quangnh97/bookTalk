@@ -19,7 +19,7 @@ import Category from './pages/user/categories/category'
 import Book from './pages/user/book/index'
 import bookOnline from './pages/user/book/readOnline'
 import categoriesManager from './pages/admin/categoriesManager'
-import booksManager from './pages/admin/booksManager'
+import usersComment from './pages/admin/usersComment'
 import usersManager from './pages/admin/usersManager'
 import booksCategory from './pages/admin/booksCategory'
 
@@ -159,9 +159,9 @@ const routes = [
               component: categoriesManager,
           },
           {
-              path: '/admin/books-manager',
-              name: 'books-manager',
-              component: booksManager,
+              path: '/admin/users-comment',
+              name: 'users-comment',
+              component: usersComment,
           },
 
           {

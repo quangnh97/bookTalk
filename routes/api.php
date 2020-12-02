@@ -50,8 +50,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('addPost', 'PostsController@addPost');
     //delete post
     Route::get('/deletePost/{id}','PostsController@deletePost');
-    //like post
-    Route::get('/likePost/{id}','PostsController@likePost');
+
+
+    //like
+    Route::get('likes','LikesController@getLike');
+    Route::get('checkLike','LikesController@checkLike');
+    Route::post('likeBook','LikesController@likeBook');
+
     // update post
     Route::post('updatePost/{id}', 'PostsController@updatePost');
 
@@ -66,7 +71,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/books/update/{id}', 'BooksController@update');
 
     Route::get('/readOnline','BooksController@readOnline');
-
 
     //add comments
     Route::get('comments', 'CommentsController@comments');

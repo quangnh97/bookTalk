@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use DB;
 
 class UserController extends Controller
 {
     // show all user
     public function index()
     {
-        $users = User::all();
+        $users = DB::table('users')
+            ->select( 'id','name','email','role')
+            ->paginate(12);
 
         return response()->json(
             [
                 'status' => 'success',
-                'users' => $users->toArray()
+                'users' => $users
             ], 200);
     }
 
