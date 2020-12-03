@@ -37,6 +37,8 @@ Vue.component('paginate', Paginate);
 import VueCarousel from 'vue-carousel';
 
 Vue.use(VueCarousel);
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
 
 axios.defaults.baseURL = `http://127.0.0.1:8009/api`
 Vue.use(VueAuth, auth)

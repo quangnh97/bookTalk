@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function allCategories()
     {
-        $categories= DB::table('category')->get();
+        $categories= DB::table('category')->select('id','name')->get();
         return $categories;
     }
 

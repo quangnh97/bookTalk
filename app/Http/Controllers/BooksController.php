@@ -59,6 +59,23 @@ class BooksController extends Controller
         return $book;
     }
 
+    public function booksStore(Request $request)
+    {
+        $userId = $request->userId;
+        $books = DB::table('book_category')
+            ->join('book', 'book.id', '=', 'book_category.book_id')
+            ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
+            ->join('likes', 'likes.book_id', '=', 'book.id')
+            ->where('likes.user_id', $userId)
+            ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
+            ->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'books' => $books,
+        ]);
+    }
+
 
     // search
     public function search(Request $request){

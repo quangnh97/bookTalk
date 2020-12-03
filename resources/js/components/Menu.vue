@@ -16,11 +16,11 @@
                   <router-link  :to="{ name : route.path }" :key="key" class="link">
                     {{route.name}}
                   </router-link>
-                  <router-link  :to="{ name : route.path }" :key="key" class="link">
-                    {{route.name}}
+                  <router-link  :to="{ name : 'profile' }" :key="key" class="link">
+                    Cài đặt tài khoản
                   </router-link>
-                  <router-link  :to="{ name : route.path }" :key="key" class="link">
-                    {{route.name}}
+                  <router-link  :to="{ name : 'store' }" :key="key" class="link">
+                    Kho lưu trữ cá nhân
                   </router-link>
             </div>
         </a-button>

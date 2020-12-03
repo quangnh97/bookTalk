@@ -7,7 +7,8 @@ import Login from './pages/Login'
 import Newfeed from './pages/user/Dashboard'
 import Dashboard from './pages/Home'
 import AdminDashboard from './pages/admin/Dashboard'
-import Profile from './pages/user/Profile'
+import ProfileUser from './pages/user/ProfileUser'
+import Store from './pages/user/Store'
 import EditProfile from './pages/user/EditProfile'
 import Friends from './pages/user/Friends'
 import FindFriends from './pages/user/FindFriends'
@@ -58,11 +59,22 @@ const routes = [
     },
 
   {
-    path: '/profile/:slug', component: Profile,
+    path: '/profile',
+    name: 'profile',
+    component: ProfileUser,
     meta: {
       auth: true
     }
   },
+
+    {
+        path: '/store',
+        name: 'store',
+        component: Store,
+        meta: {
+            auth: true
+        }
+    },
 
   {
     path: '/editProfile', name: 'editProfile', component:EditProfile,
