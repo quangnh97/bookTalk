@@ -8,14 +8,19 @@
             <div class="button-setting">
                 <div class="mini-color" />
                 <div class="bt-st">
-                    <router-link :to="{name:'categories-manager'}">
+                    <router-link  to="/admin/categories-manager" v-if="auth.role === 2">
+                        <button type="button" class="btn btn-warning st-sp">
+                            Thể loại -  Sách
+                        </button>
+                    </router-link>
+                    <router-link to="/super-admin/categories-manager" v-else>
                         <button type="button" class="btn btn-warning st-sp">
                             Thể loại -  Sách
                         </button>
                     </router-link>
                 </div>
             </div>
-            <div class="button-setting">
+            <div class="button-setting" v-if="auth.role === 3">
                 <div class="mini-color" />
                 <div class="bt-st">
                     <router-link :to="{name:'users-manager'}">
@@ -28,7 +33,12 @@
             <div class="button-setting">
                 <div class="mini-color" />
                 <div class="bt-st">
-                    <router-link :to="{name:'users-comment'}">
+                    <router-link to="/admin/users-comment" v-if="auth.role === 2">
+                        <button type="button" class="btn btn-warning st-sp">
+                            Quản lí bình luận
+                        </button>
+                    </router-link>
+                    <router-link to="/super-admin/users-comment" v-else>
                         <button type="button" class="btn btn-warning st-sp">
                             Quản lí bình luận
                         </button>
@@ -54,14 +64,16 @@
 </template>
 
 <script>
-  import userList from '../../components/user-list.vue'
+
   export default {
+      props: {
+          auth: {
+              type: Object
+          }
+      },
     mounted() {
       //
     },
-    components: {
-      userList
-    }
   }
 </script>
 

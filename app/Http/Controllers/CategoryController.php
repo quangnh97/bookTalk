@@ -41,6 +41,7 @@ class CategoryController extends Controller
         ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
         ->where('book_category.category_id', $id)
         ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
+            ->orderBy('book_profile.totalView', 'DESC')
         ->paginate(12);
 
         return response()->json([

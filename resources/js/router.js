@@ -149,9 +149,9 @@ const routes = [
     redirect: '/admin/categories-manager',
     name: 'admin.dashboard',
     component: AdminDashboard,
-    meta: {
-      auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
-    },
+    // meta: {
+    //   auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+    // },
       children: [
           {
               path: '/admin/categories-manager',
@@ -165,12 +165,7 @@ const routes = [
           },
 
           {
-              path: '/admin/users-manager',
-              name: 'users-manager',
-              component: usersManager,
-          },
-          {
-              path: '/admin/books-category/:id',
+              path: '/books-category/:id',
               name: 'books-category',
               component: booksCategory,
           },
@@ -178,7 +173,41 @@ const routes = [
       ],
   },
 
-  //
+  // SUPER ADMIN
+    // ADMIN ROUTES
+    {
+        path: '/super-admin',
+        redirect: '/super-admin/categories-manager',
+        name: 'superAdmin.dashboard',
+        component: AdminDashboard,
+        // meta: {
+        //     auth: {roles: 3, redirect: {name: 'login'}}
+        // },
+        children: [
+            {
+                path: '/super-admin/categories-manager',
+                name: 'categories-manager',
+                component: categoriesManager,
+            },
+            {
+                path: '/super-admin/users-comment',
+                name: 'users-comment',
+                component: usersComment,
+            },
+
+            {
+                path: '/super-admin/users-manager',
+                name: 'users-manager',
+                component: usersManager,
+            },
+            {
+                path: '/books-category/:id',
+                name: 'books-category',
+                component: booksCategory,
+            },
+
+        ],
+    },
 
 ]
 

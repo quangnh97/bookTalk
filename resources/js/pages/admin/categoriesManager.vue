@@ -31,6 +31,11 @@
                                 <i class="fas fa-book"></i>
                             </a-button>
                         </router-link>
+<!--                        <router-link :to="{name:'books-categories', params: { id: category.id } }" v-else>-->
+<!--                            <a-button>-->
+<!--                                <i class="fas fa-book"></i>-->
+<!--                            </a-button>-->
+<!--                        </router-link>-->
 
                         <a-button
                             type="danger"

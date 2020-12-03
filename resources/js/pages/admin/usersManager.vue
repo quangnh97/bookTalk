@@ -5,36 +5,29 @@
             <table class="table table-bordered">
                 <tr class="row-text">
                     <th>Id</th>
-                    <th>Tên thể loại</th>
+                    <th style="    width: 30%;">Tên</th>
+                    <th>Email</th>
+                    <th>Vai trò</th>
                     <th class="active">
-                        <a-button type="primary"
-                                  @click="showModalCreateCategory()"
-                        >
-                            <i class="fas fa-plus" />
-                        </a-button>
                     </th>
                 </tr>
-                <tr v-for="category in categories" :key="category.id">
+                <tr v-for="user in users" :key="user.id">
                     <td class="color-column">
-                        {{ category.id }}
+                        {{ user.id }}
                     </td>
-                    <td class="status-column">{{ category.name }}</td>
-                    <td class="active">
-                        <a-button type="primary"
-                                  @click="showModalEditCategory(category)"
-                        >
-                            <i class="fas fa-pencil-alt" />
-                        </a-button>
+                    <td class="">{{ user.name }}</td>
+                    <td class="">{{ user.email }}</td>
+                    <td class="">
+                        <input id="admin" v-model="user.role" type="checkbox" data-toggle="modal" data-target="#modalForm" @click="setRole(user.id, user.role)">
+                        <label for="admin">
+                            admin
+                        </label>
 
-                        <router-link :to="{name:'books-category', params: { id: category.id } }">
-                            <a-button>
-                                <i class="fas fa-book"></i>
-                            </a-button>
-                        </router-link>
-
+                    </td>
+                    <td class="active" style="text-align: center;">
                         <a-button
                             type="danger"
-                            @click="showModalDeleteCategory(category.id)"
+                            @click="showModalDeleteCategory(user.id)"
                         >
                             <i class="fas fa-eraser" />
                         </a-button>
@@ -78,13 +71,14 @@
         },
         data() {
             return {
-                user:[],
+                users:[],
                 pageNumber: this.$route.params.pageNumber, // page so bao nhieu
                 // pageNum: Number(this.$route.params.pageNumber),
                 pageNum: 1,
                 numberPage: 1, // so trang
                 onePage: 4,
                 model: 'user',
+                userSelect: {},
             }
         },
         created() {
@@ -92,7 +86,7 @@
             EventBus.$on(ModalCreateCategory.CREATE_CATEGORY, () => {
                 this.getUsers();
             });
-            EventBus.$on(ModalDelete.DELETE_CATEGORY, () => {
+            EventBus.$on(ModalDelete.DELETE_USER, () => {
                 this.getUsers();
             });
             EventBus.$on(ModalEditCategory.EDIT_CATEGORY, () => {
@@ -109,14 +103,25 @@
             clickPaginate(pageNum) {
                 this.getUsers(pageNum);
             },
+            setRole(id, role){
+
+            },
 
             getUsers(pageNum){
                 console.log('getUsers');
                 axios.get('/users?page=' + pageNum)
                     .then(response => {
-                        console.log(response.data);
-                        this.users = response.data.data;
-                        this.numberPage = response.data.last_page;
+                        console.log(response.data.users);
+                        this.users = response.data.users.data;
+                        for (let i = 0; i < this.users.length; i++) {
+                            if (this.users[i].role === 1){
+                                this.users[i].role = false;
+                            }
+                            if (this.users[i].role === 2){
+                                this.users[i].role = true;
+                            }
+                        }
+                        this.numberPage = response.data.users.last_page;
                     })
                     .catch(function (error) {
                         console.log(error);

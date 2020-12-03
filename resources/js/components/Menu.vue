@@ -23,11 +23,18 @@
             {{route.name}}
           </router-link>
         </a-button>
-
+    </span>
+      <!--LOGGED supper ADMIN-->
+      <span v-if="$auth.check(3)" v-for="(route, key) in routes.superAdmin" v-bind:key="route.path">
+        <a-button type="primary">
+          <router-link  :to="{ name : route.path }" :key="key">
+            {{route.name}}
+          </router-link>
+        </a-button>
     </span>
     <!--LOGOUT-->
     <span v-if="$auth.check()">
-            <a-button type="primary" icon="poweroff" :loading="iconLoading" @click="logout()">
+            <a-button type="primary" icon="poweroff"  @click="logout()">
               Logout
             </a-button>
     </span>
@@ -64,7 +71,14 @@
               name: 'Home',
               path: 'admin.dashboard'
             }
-          ]
+          ],
+            // LOGGED ADMIN
+            superAdmin: [
+                {
+                    name: 'Home',
+                    path: 'superAdmin.dashboard'
+                }
+            ]
         }
       }
     },

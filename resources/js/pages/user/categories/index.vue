@@ -50,15 +50,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    .table-item {
-        height: 400px;
-        overflow-y: scroll;
-    }
-    @media screen and (min-width: 1400px) {
-        .table-item {
-            height: 700px;
-        }
-    }
+    /*.table-item {*/
+    /*    height: 400px;*/
+    /*    overflow-y: scroll;*/
+    /*}*/
+    /*@media screen and (min-width: 1400px) {*/
+    /*    .table-item {*/
+    /*        height: 700px;*/
+    /*    }*/
+    /*}*/
     .cat-item {
         list-style-type: none;
     }

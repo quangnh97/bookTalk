@@ -26,7 +26,7 @@
                                 <b>({{likes}})</b>
                             </a-button>
 
-                            <a-button type="primary" shape="round" icon="download" :size="size" @click="dowloadFile()" >
+                            <a-button type="primary" shape="round" icon="download"  @click="dowloadFile()" >
                             Download
                             </a-button>
                             <a-button type="danger">
@@ -63,6 +63,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3 sidebar">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Thể Loại Sách
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li v-for="category in categories" :key="category.id">
+                        <router-link :to="{name:'category', params: { id: category.id } }">
+                            {{category.name}}
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 </template>
@@ -85,6 +99,7 @@ export default {
             comments: [],
             liked: false,
             likes: 0,
+            categories:[],
         }
     },
 
@@ -101,6 +116,7 @@ export default {
         this.getBook();
         this.checkLike();
         this.getComments();
+        this.getListCategories();
         this.getLikes();
         var socket = io('http://localhost:8090',{
             transports:['websocket'],
@@ -118,6 +134,7 @@ export default {
 
         socket.on(`comment`, (message) => {
             console.log(message);
+            this.comments.push(message[0]);
         });
     },
 
@@ -129,14 +146,24 @@ export default {
                     idUser: this.auth.id,
                 },
             })
-                .then(response => {
-                    console.log('likes');
-                    if(response.status===200){
-                        console.log(response);
-                        if(response.data.count === 1){
-                            this.liked = true;
-                        }
+            .then(response => {
+                console.log('likes');
+                if(response.status===200){
+                    console.log(response);
+                    if(response.data.count === 1){
+                        this.liked = true;
                     }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        getListCategories(){
+            axios.get('/allCategories')
+                .then(response => {
+                    console.log(response.data);
+                    this.categories = response.data;
                 })
                 .catch(function (error) {
                     console.log(error);

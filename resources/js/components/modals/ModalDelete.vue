@@ -7,6 +7,7 @@
         <div class="modal-header text-center">
           <h4 class="modal-label w-100 font-weight-bold" v-if="model === 'category'">Xóa thể loại</h4>
           <h4 class="modal-label w-100 font-weight-bold" v-if="model === 'book'">Xóa sách</h4>
+          <h4 class="modal-label w-100 font-weight-bold" v-if="model === 'user'">Xóa tài khoản</h4>
           <button type="button" class="close" aria-label="Close" @click="hide()">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -14,6 +15,7 @@
         <div class="modal-body mx-3">
           <p v-if="model === 'category'">Bạn có chắc chắn muốn xóa thể loại này không?</p>
           <p v-if="model === 'book'">Bạn có chắc chắn muốn xóa cuốn sách này không?</p>
+          <p v-if="model === 'user'">Bạn có chắc chắn muốn xóa tài khoản này không?</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" @click="hide()">
@@ -38,9 +40,11 @@ import { mapActions, mapGetters } from 'vuex';
 import EventBus from "../../app";
 const DELETE_CATEGORY = 'DELETE_CATEGORY';
 const DELETE_BOOK = 'DELETE_BOOK';
+const DELETE_USER = 'DELETE_USER';
 export default {
     DELETE_CATEGORY: DELETE_CATEGORY,
     DELETE_BOOK: DELETE_BOOK,
+    DELETE_USER: DELETE_USER,
   computed: {
     ...mapGetters('modals', ['isShowingModalDelete']),
     ...mapGetters('modals', ['id']),
@@ -67,17 +71,31 @@ export default {
       }
      if (this.model === 'book'){
          axios.delete('/books/' + id)
-             .then(response => {
-                 if(response.data.success){
-                     console.log(response.data.success);
-                     EventBus.$emit(DELETE_BOOK, 'delete_book');
-                     this.hide();
-                 }
-             })
-             .catch(function (error) {
-                 console.log(error);
-             });
+         .then(response => {
+             if(response.data.success){
+                 console.log(response.data.success);
+                 EventBus.$emit(DELETE_BOOK, 'delete_book');
+                 this.hide();
+             }
+         })
+         .catch(function (error) {
+             console.log(error);
+         });
      }
+
+         if (this.model === 'user'){
+             axios.delete('/users/' + id)
+                 .then(response => {
+                     if(response.data.success){
+                         console.log(response.data.success);
+                         EventBus.$emit(DELETE_USER, 'delete_book');
+                         this.hide();
+                     }
+                 })
+                 .catch(function (error) {
+                     console.log(error);
+                 });
+         }
 
     },
   },
