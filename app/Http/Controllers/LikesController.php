@@ -25,6 +25,20 @@ class LikesController extends Controller
         ]);
     }
 
+    public function dislike(Request $request){
+
+        $idBook = $request->idBook;
+        $idUser = $request->idUser;
+
+        $like = DB::table('likes')
+                ->where('book_id',$idBook)
+                ->where('user_id',$idUser)
+                ->delete();
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
     public function checkLike(Request $request){
 
         $idBook = $request->idBook;

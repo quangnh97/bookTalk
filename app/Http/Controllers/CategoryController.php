@@ -28,13 +28,27 @@ class CategoryController extends Controller
 
     public function getListBooksLike(Request $request)
     {
-        $books = DB::table('book_category')
-            ->join('book', 'book.id', '=', 'book_category.book_id')
-            ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
-            ->where('book_category.category_id', $request->userId)
-            ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
-            ->orderBy('book_profile.totalView', 'DESC')
-            ->paginate(12);
+        $likes = DB::table('likes_category')
+            ->join('category', 'category.id', '=', 'likes_category.category_id')
+            ->where('likes_category.user_id', $request->userId)
+            ->select( 'likes_category.category_id as id', 'category.name',
+                DB::raw("(
+                    ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
+                            ->join('book', 'book.id', '=', 'book_category.book_id')
+                            ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
+                            ->where('book_category.category_id', id)
+
+                                ->orderBy('book_profile.totalView', 'DESC')
+                            ->limit(8);
+
+                ) AS books")
+            )
+            ->get();
+        return response()->json([
+            'success' => true,
+            'data' => $likes,
+        ]);
+
     }
 
     public function categoryHome()

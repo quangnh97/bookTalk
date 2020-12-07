@@ -13,12 +13,14 @@
                     >
                         <router-link :to="{name:'book', params: { id: book.id } }">
                             <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 111px;">
-                            <p class="book-name">{{book.name}}</p>
+                            <p class="book-name" style="    color: rgb(0 0 0);
+    padding-top: 15px;">{{book.name}}</p>
                         </router-link>
                     </div>
                 </div>
-                <div v-if="page < last_page" class="text-center">
-                    <button type="button" class="btn seeMore" @click="seeMore()">
+                <div v-if="page < last_page && page != last_page" class="text-center">
+                    <button type="button " class="btn btn-primary seeMore" @click="seeMore()" style="margin-top: 10px;
+    margin-bottom: 10px">
                        Xem thêm
                     </button>
                 </div>
@@ -72,7 +74,8 @@ export default {
     },
     methods: {
         seeMore() {
-            this.getListBooks(this.page + 1);
+            this.page = this.page + 1;
+            this.getListBooks(this.page);
         },
 
         getListCategories(){
@@ -110,7 +113,7 @@ export default {
 </script>
 <style lang="scss" scoped >
     .table-item {
-        height: 400px;
+        height: 450px;
         overflow-y: scroll;
     }
     @media screen and (min-width: 1400px) {

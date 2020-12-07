@@ -7,6 +7,8 @@ use App\profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Log;
+use DB;
 
 class AuthController extends Controller
 {
@@ -18,13 +20,13 @@ class AuthController extends Controller
             'password'  => 'required|min:3|confirmed',
         ]);
 
-        if ($validator->fails())
-        {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $vvalidator>errors()
-            ], 422);
-        }
+//        if ($validator->fails())
+//        {
+//            return response()->json([
+//                'status' => 'error',
+//                'errors' => $validator>errors()
+//            ], 422);
+//        }
 
         if($request->gender=='male'){
             $pic_path = 'boy.png';
@@ -33,7 +35,7 @@ class AuthController extends Controller
         {
             $pic_path = 'girl.png';
         }
-        
+
         $user = new User;
         $user->email = $request->email;
         $user->gender = $request->gender;
@@ -42,6 +44,18 @@ class AuthController extends Controller
         $user->slug = str_slug($request->name, '-');
         $user->password = bcrypt($request->password);
         $user->save();
+
+        $id = $user->id;
+        $likes = $request->likes;
+        Log::info($id);
+        foreach ($request->likes as $categoryId) {
+            DB::table('likes_category')
+                ->insert([
+                    'user_id' => $id,
+                    'category_id' => $categoryId,
+                    'created_at' =>\Carbon\Carbon::now()->toDateTimeString()
+                ]);
+        }
 
         Profile::create(['user_id' => $user->id,
         'city' => '',
@@ -70,7 +84,7 @@ class AuthController extends Controller
     public function logout()
     {
         $this->guard()->logout();
-    
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Logged out Successfully.'
@@ -92,7 +106,7 @@ class AuthController extends Controller
         return response()
         ->json(['status' => 'successs'], 200)
         ->header('Authorization', $this->tokenApp);
-        
+
         // if ($token = $this->guard()->refresh()) {
         //     return response()
         //         ->json(['status' => 'successs'], 200)

@@ -20,11 +20,16 @@
                                 <i class="fas fa-shopping-cart" style="    padding-right: 5px;"></i>
                                 Mua sách tại những trang thương mại điện tử uy tín ( Tiki, Shopee, Fahasa, Vinabook,...)
                             </div>
-                            <a-button :class="{userLiked : liked}" @click="toggleLike()">
-                                <i class="far fa-thumbs-up" ></i>
-                                <span> Thích </span>
-                                <b>({{likes}})</b>
-                            </a-button>
+                                <span  @click="toggleLike()" style="
+                                    font-size: 16px;
+                                    color: rgb(30 144 255);
+                                    padding-right: 20px;
+                                ">
+                                    <i  class="far fa-heart" id="like" style="font-size: 30px;"></i>
+                                    <span id="like1">Thích ({{likes}})</span>
+                                </span>
+
+
 
                             <a-button type="primary" shape="round" icon="download"  @click="dowloadFile()" >
                             Download
@@ -108,7 +113,17 @@ export default {
             this.bookId = this.$route.params.id;
             this.getBook();
             this.getComments();
+        },
+        liked(){
+            if(this.liked == true){
+                document.getElementById("like").style.color = "red";
+                document.getElementById("like1").style.color = "red";
+            }else {
+                document.getElementById("like").style.color = "dodgerblue";
+                document.getElementById("like1").style.color = "dodgerblue";
+            }
         }
+
     },
 
     created() {
@@ -188,6 +203,20 @@ export default {
         toggleLike() {
             if(this.liked == false){
                 axios.post('/likeBook', {
+                    idBook: this.bookId,
+                    idUser: this.auth.id,
+                })
+                    .then(response => {
+                        console.log('likeBook');
+                        if(response.status===200){
+                            console.log(response);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }else {
+                axios.post('/dislike', {
                     idBook: this.bookId,
                     idUser: this.auth.id,
                 })
@@ -286,9 +315,7 @@ export default {
         height: 350px !important;
     }
     .userLiked {
-        background-color: red;
-        color: black;
-        border-color: black;
+        color: red !important;
     }
 
     #commentBox {

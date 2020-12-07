@@ -58,6 +58,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3 sidebar">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Thể Loại Sách
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li v-for="category in categories" :key="category.id">
+                        <router-link :to="{name:'category', params: { id: category.id } }">
+                            {{category.name}}
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 </template>
@@ -291,11 +305,5 @@ export default {
 
     }
 
-    .btn-primary {
-        background-color: #fee67a;
-        min-width: 90px;
-        color: black;
-        border-color: orange;
-    }
 
 </style>

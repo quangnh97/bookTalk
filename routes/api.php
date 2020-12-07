@@ -30,6 +30,7 @@ Route::prefix('auth')->group(function () {
         Route::get('refresh', 'AuthController@refresh');
         Route::get('user', 'AuthController@user');
         Route::post('logout', 'AuthController@logout');
+
     });
 });
 
@@ -60,6 +61,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('likes','LikesController@getLike');
     Route::get('checkLike','LikesController@checkLike');
     Route::post('likeBook','LikesController@likeBook');
+    Route::post('dislike','LikesController@dislike');
 
     // update post
     Route::post('updatePost/{id}', 'PostsController@updatePost');
@@ -67,8 +69,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     // category
     Route::resource('categories', CategoryController::class);
     Route::get('/booksInCategory','CategoryController@booksInCategory');
-    Route::get('/booksHot','CategoryController@booksHot');
-    Route::get('/allCategories','CategoryController@allCategories');
+
+
     Route::get('/getListBooksLike','CategoryController@getListBooksLike');
 
     // book
@@ -145,3 +147,5 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('/categoryHome','CategoryController@categoryHome');
     Route::post('/search', 'BooksController@search');
+    Route::get('/booksHot','CategoryController@booksHot');
+Route::get('/allCategories','CategoryController@allCategories');

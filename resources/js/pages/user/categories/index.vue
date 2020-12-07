@@ -14,6 +14,45 @@
 
         </li>
     </ul>
+
+    <div style="max-width: 900px;
+            margin: 0 auto; margin-top: 30px;">
+        <h2>Sách được đọc nhiều nhất</h2>
+        <carousel 					:perPage="4"
+                                     :autoplay="true"
+                                     :loop="true"
+                                     :autoplayTimeout="5000"
+                                     :navigationEnabled="false"
+                                     :paginationEnabled="true">
+            <slide v-for="book in books" :key="book.id">
+                <router-link :to="{name:'book', params: { id: book.id } }">
+                    <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="    max-width: 200px;
+    height: 300px;">
+                </router-link>
+            </slide>
+        </carousel>
+    </div>
+
+    <h2>Sách đề xuất cho bạn</h2>
+    <div style="max-width: 900px;
+            margin: 0 auto; margin-top: 30px;"
+        v-for="(like,index) in likes" :key="index"
+    >
+        <h3>{{like.name[0].name}}</h3>
+        <carousel 					:perPage="4"
+                                     :autoplay="true"
+                                     :loop="true"
+                                     :autoplayTimeout="5000"
+                                     :navigationEnabled="false"
+                                     :paginationEnabled="true">
+            <slide v-for="book in like.books.data"  :key="book.id">
+                <router-link :to="{name:'book', params: { id: book.id } }">
+                    <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="    max-width: 200px;
+    height: 300px;">
+                </router-link>
+            </slide>
+        </carousel>
+    </div>
 </div>
 </template>
 
@@ -28,11 +67,15 @@ export default {
     data() {
         return {
             categories:[],
+            books:[],
+            likes: [],
         }
     },
 
     created() {
         this.getListCategories();
+        this.getLikeCategory();
+        this.getListBooks();
         console.log('auth' + this.auth);
     },
     methods: {
@@ -45,7 +88,44 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-        }
+        },
+
+        getListBooks(pageNum){
+            axios.get('/booksHot')
+                .then(response => {
+                    console.log(response.data);
+                    this.books = response.data.books.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+        getLikeCategory(){
+            axios.get('/getLikeCategory?userId=' + this.auth.id)
+                .then(response => {
+                    console.log('getLikeCategory');
+                    console.log(response.data);
+                    let arr = response.data.data;
+                    for(let i = 0; i < arr.length; i++){
+                        console.log(arr[i]);
+                        axios.get('/booksInCategory?categoryId=' + arr[i].id)
+                            .then(res => {
+                                console.log('booksInCategory');
+                                console.log(res.data);
+                                this.likes.push(res.data);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
     }
 }
 </script>

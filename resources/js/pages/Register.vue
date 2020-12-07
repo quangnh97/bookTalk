@@ -34,6 +34,9 @@
             </div>
           </div>
 
+            <label for="name" class="lb">Thể loại yêu thích: </label>
+            <multiselect class="form-control" style="padding: 0px !important;" v-model="value" tag-placeholder="Add this as new tag" placeholder="Thêm thể loại yêu thích" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+
           <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
             <label for="password">Password</label>
             <input type="password" id="password" class="form-control" v-model="password">
@@ -63,20 +66,59 @@
         has_error: false,
         error: '',
         errors: {},
-        success: false
+        success: false,
+
+          options:[],
+          value: [],
       }
     },
 
+      created() {
+          this.getListCategories();
+      },
+
     methods: {
+        addTag (newTag) {
+            console.log(newTag);
+            const tag = {
+                name: newTag,
+                code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+            }
+            this.options.push(newTag)
+            this.value.push(newTag)
+        },
+
+        getListCategories(){
+            axios.get('/allCategories')
+                .then(response => {
+                    console.log(response.data);
+                    this.categories = response.data;
+                    for(let i = 0;i < response.data.length;i++)
+                    {
+                        response.data[i].code = response.data[i].name.substring(0, 2) + Math.floor((Math.random() * 10000000))
+                        this.options.push(response.data[i]);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
       register() {
         var app = this
+          const likeCate = [];
+          for(let i = 0; i < this.value.length; i++){
+              likeCate.push(this.value[i].id);
+          }
+
+
         this.$auth.register({
           data: {
             name: app.name,
             email: app.email,
             gender: app.gender,
             password: app.password,
-            password_confirmation: app.password_confirmation
+            password_confirmation: app.password_confirmation,
+              likes: likeCate
           },
           success: function () {
             app.success = true
@@ -89,6 +131,7 @@
             app.errors = res.response.data.errors || {}
           }
         })
+
       }
     }
   }
