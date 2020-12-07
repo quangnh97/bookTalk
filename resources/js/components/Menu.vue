@@ -52,13 +52,9 @@
 
 <script>
   export default {
-      props: {
-          auth: {
-              type: Object
-          }
-      },
     data() {
       return {
+          auth: {},
         routes: {
           // UNLOGGED
           unlogged: [
@@ -76,7 +72,7 @@
           user: [
             {
               name: 'Home',
-              path: 'dashboard'
+              path: 'categories'
             }
           ],
           // LOGGED ADMIN
@@ -97,7 +93,19 @@
       }
     },
 
-    methods: {
+      created() {
+          axios.get('/user')
+              .then(response => {
+                      this.auth = response.data;
+
+                      console.log(this.user);
+              })
+              .catch(function (error) {
+                  console.log(error);
+              });
+      },
+
+      methods: {
       logout() {
         this.$auth.logout()
         localStorage.removeItem('user_token');

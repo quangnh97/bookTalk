@@ -66,14 +66,23 @@
 <script>
 
   export default {
-      props: {
-          auth: {
-              type: Object
+      data() {
+          return {
+              auth: {},
           }
       },
-    mounted() {
-      //
-    },
+
+      created() {
+          axios.get('/user')
+              .then(response => {
+                  this.auth = response.data;
+
+                  console.log(this.user);
+              })
+              .catch(function (error) {
+                  console.log(error);
+              });
+      },
   }
 </script>
 
