@@ -71,8 +71,8 @@ export default {
         this.getListCategories();
     },
     methods: {
-        clickPaginate(pageNum) {
-            this.getListBooks(pageNum);
+        seeMore() {
+            this.getListBooks(this.page + 1);
         },
 
         getListCategories(){
@@ -94,8 +94,11 @@ export default {
             })
             .then(response => {
                 console.log(response.data);
-                this.books = response.data.books.data;
-                this.categoryName = response.data.name[0].name;
+                console.log(response.data.books.last_page);
+                const notes  = response.data.books.data;
+                for (let i = 0; i < notes.length; i++){
+                    this.books.push(notes[i]);
+                }
                 this.last_page = response.data.books.last_page;
             })
             .catch(function (error) {

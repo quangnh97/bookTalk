@@ -59,13 +59,14 @@
 
 <script>
 export default {
-    props: {
-        auth: {
-            type: Object
-        }
-    },
+    // props: {
+    //     auth: {
+    //         type: Object
+    //     }
+    // },
     data() {
         return {
+            auth: {},
             categoryId: '',
             categoryName: '',
             books:[],
@@ -86,6 +87,15 @@ export default {
     created() {
         this.categoryId = this.$route.params.id;
         this.getListBooks();
+        axios.get('/user')
+            .then(response => {
+                this.auth = response.data;
+
+                console.log(this.user);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         console.log('auth' + this.auth);
         this.getListCategories();
     },
@@ -118,6 +128,20 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+        },
+
+        getListBooksLike(pageNum){
+            axios.get('/getListBooksLike' , {
+                params: {
+                    userId: this.auth.id,
+                },
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 }
