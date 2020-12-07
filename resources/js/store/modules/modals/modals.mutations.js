@@ -36,4 +36,13 @@ export const mutations = {
     HIDE_MODAL_EDIT_BOOK: (state) => {
         state.show_modal_edit_book.show = false;
     },
+
+    SHOW_MODAL_NOTIFY_SUCCESS: (state, model) => {
+        state.show_modal_notify_success.show = true;
+        state.show_modal_notify_success.model = model;
+    },
+    HIDE_MODAL_NOTIFY_SUCCESS: (state) => {
+        state.show_modal_notify_success.show = false;
+        state.show_modal_notify_success.model = '';
+    },
 };

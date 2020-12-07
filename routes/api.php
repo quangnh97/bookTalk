@@ -38,6 +38,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::resource('users', UserController::class);
     Route::get('users', 'UserController@index')->middleware('isSuperAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
+    Route::post('editUser', 'UserController@editUser');
+    Route::post('likeCategory', 'UserController@likeCategory');
+    Route::get('getLikeCategory', 'UserController@getLikeCategory');
 
 
     Route::get('/getDownload', 'BooksController@getDownload');

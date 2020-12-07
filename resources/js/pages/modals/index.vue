@@ -5,6 +5,7 @@
       <modal-edit-category/>
       <modal-create-book/>
       <modal-edit-book/>
+      <modal-notify-success/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import ModalDelete from '../../components/modals/ModalDelete';
 import ModalEditCategory from '../../components/modals/ModalEditCategory';
 import ModalCreateBook from '../../components/modals/ModalCreateBook';
 import ModalEditBook from '../../components/modals/ModalEditBook';
+import ModalNotifySuccess from '../../components/modals/ModalNotifySuccess';
 
 export default {
   components: {
@@ -22,6 +24,7 @@ export default {
       ModalEditCategory,
       ModalCreateBook,
       ModalEditBook,
+      ModalNotifySuccess
   },
 };
 </script>

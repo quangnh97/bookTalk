@@ -31,5 +31,10 @@ export const actions = {
     hideModalEditBook({ commit }) {
         commit('HIDE_MODAL_EDIT_BOOK');
     },
-
+    showModalNotifySuccess({ commit }, model) {
+        commit('SHOW_MODAL_NOTIFY_SUCCESS', model);
+    },
+    hideModalNotifySuccess({ commit }) {
+        commit('HIDE_MODAL_NOTIFY_SUCCESS');
+    },
 };

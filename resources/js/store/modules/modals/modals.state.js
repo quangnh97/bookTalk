@@ -17,4 +17,9 @@ export const state = {
         show: false,
         id: '',
     },
+    show_modal_notify_success: {
+        show: false,
+        model: '',
+    },
+
 };
