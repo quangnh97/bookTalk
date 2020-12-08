@@ -77,6 +77,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::resource('books', BooksController::class);
     Route::post('/books/update/{id}', 'BooksController@update');
     Route::get('/booksStore', 'BooksController@booksStore');
+    Route::post('/sortBooksStore', 'BooksController@sortBooksStore');
 
     Route::get('/readOnline','BooksController@readOnline');
 

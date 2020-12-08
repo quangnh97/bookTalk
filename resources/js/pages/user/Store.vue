@@ -7,16 +7,19 @@
                     Kho lưu trữ sách
                 </div>
                 <div class="panel-body category-list table-item">
-                    <div class="col-xs-6 col-md-3 col-sm-3 ebook"
-                        v-for="(book, index) in books"
-                        :key="index"
-                    >
-                        <router-link :to="{name:'book', params: { id: book.id } }">
-                            <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 111px;">
-                            <p class="book-name" style="    color: rgb(0 0 0);
+
+                    <draggable v-model="books" @end="onEndMove">
+                        <transition-group>
+                            <div v-for="(book, index) in books" :key="book.id" class="col-xs-6 col-md-3 col-sm-3 ebook">
+                                <router-link :to="{name:'book', params: { id: book.id } }">
+                                    <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 111px;">
+                                    <p class="book-name" style="    color: rgb(0 0 0);
     padding-top: 15px;">{{book.name}}</p>
-                        </router-link>
-                    </div>
+                                </router-link>
+                            </div>
+                        </transition-group>
+                    </draggable>
+
                 </div>
                 <div v-if="page < last_page && page != last_page" class="text-center">
                     <button type="button " class="btn btn-primary seeMore" @click="seeMore()" style="margin-top: 10px;
@@ -45,7 +48,9 @@
 </template>
 
 <script>
+    import Draggable from 'vuedraggable';
 export default {
+    components: { Draggable },
     props: {
         auth: {
             type: Object
@@ -76,6 +81,22 @@ export default {
         seeMore() {
             this.page = this.page + 1;
             this.getListBooks(this.page);
+        },
+
+        onEndMove: function(){
+            const arraySort = [];
+            for (let i = 0; i < this.books.length; i++){
+                arraySort.push(this.books[i].id);
+            }
+            axios.post('/sortBooksStore' , {
+                arraySort: arraySort,
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
 
         getListCategories(){

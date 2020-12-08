@@ -67,12 +67,27 @@ class BooksController extends Controller
             ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
             ->join('likes', 'likes.book_id', '=', 'book.id')
             ->where('likes.user_id', $userId)
-            ->select( 'book.id','book.name','book_profile.pic','book_profile.author')
+            ->select( 'likes.id','book.name','book_profile.pic')
             ->paginate(10);
 
         return response()->json([
             'success' => true,
             'books' => $books,
+        ]);
+    }
+
+    public function sortBooksStore(Request $request){
+
+        $i = 0;
+        foreach ($request->arraySort as $id) {
+            DB::table('likes')->where('id',$id)
+                ->update([
+                    'index' =>  $i,
+                ]);
+            $i++;
+        }
+        return response()->json([
+            'success' => true,
         ]);
     }
 
