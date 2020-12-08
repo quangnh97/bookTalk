@@ -124,8 +124,8 @@ const routes = [
   },
   // books
     {
-        path: '/categories',
-        name: 'categories',
+        path: '/home',
+        name: 'home-user',
         component: Categories,
         meta: {
             auth: true

@@ -21,7 +21,7 @@
             </ul>
         </div>
         <div class="text-center mt-4 all-book">
-            <router-link :to="{name:'categories' }" class="btn-ebook view-all-book" title="Xem tất cả sách">
+            <router-link :to="{name:'home-user' }" class="btn-ebook view-all-book" title="Xem tất cả sách">
                 <a-button type="primary">
                 Xem tất cả sách
                 </a-button>
@@ -94,7 +94,6 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.books = response.data.books.data;
-                    this.categoryName = response.data.name[0].name;
                     this.numberPage = response.data.books.last_page;
                 })
                 .catch(function (error) {

@@ -11,7 +11,8 @@
                         <div class="up-avt">
                             <div class="avt">
                                 <label class="btn1">
-                                    <img :src="'../images/' + auth.pic" width="100%" height="100%" class="avatar1">
+                                    <img v-if="picNew===''" :src="'../images/' + auth.pic" width="100%" height="100%" class="avatar1">
+                                    <img v-else :src="picNew" width="100%" height="100%" class="avatar1">
                                     <i class="fas fa-camera" />
 
                                     <input
@@ -21,39 +22,54 @@
                                     >
                                 </label>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="lb">Tên người dùng: </label>
+                            <input
+                                id="name"
+                                v-model="auth.name"
+                                type="text"
+                                class="form-control"
+                                placeholder=""
+                                required
+                            >
+                            <label for="name" class="lb">Email: </label>
+                            <input
+                                id="email"
+                                v-model="auth.email"
+                                type="email"
+                                class="form-control"
+                                placeholder=""
+                                required
+                            >
 
-                            <div class="form-group">
-                                <label for="name" class="lb">Tên người dùng: </label>
-                                <input
-                                    id="name"
-                                    v-model="auth.name"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder=""
-                                    required
-                                >
-                                <label for="name" class="lb">Email: </label>
-                                <input
-                                    id="email"
-                                    v-model="auth.email"
-                                    type="email"
-                                    class="form-control"
-                                    placeholder=""
-                                    required
-                                >
-                                <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Thêm thể loại yêu thích" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+                            <label for="name" class="lb">Thể loại yêu thích: </label>
+                            <multiselect class="form-control" style="padding: 0px !important;" v-model="value" tag-placeholder="Add this as new tag" placeholder="Thêm thể loại yêu thích" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
 
-                                <button
-                                    type="button"
-                                    class="btn btn-primary saveInformation"
-                                    @click="saveUserInfo()"
-                                >Lưu thay đổi
-                                </button>
-                            </div>
-
+                            <button
+                                type="button"
+                                class="btn btn-primary saveInformation"
+                                style="    margin-top: 100px;"
+                                @click="saveUserInfo()"
+                            >Lưu thay đổi
+                            </button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-3 sidebar">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Thể Loại Sách
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li v-for="category in categories" :key="category.id">
+                        <router-link :to="{name:'category', params: { id: category.id } }">
+                            {{category.name}}
+                        </router-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -62,6 +78,8 @@
 
 <script>
 
+import EventBus from "../../app";
+import { mapActions, mapState } from 'vuex';
 export default {
 
     props: {
@@ -79,27 +97,79 @@ export default {
             categories:[],
             options:[],
             value: [],
-
+            picNew: '',
+            fileNew: '',
+            likes: [],
         }
     },
-    watch: {
 
-    },
     created() {
         this.getListCategories();
+        this.getLikeCategory();
     },
     methods: {
-        saveUserInfo(){
-
+        ...mapActions({
+            showModalNotifySuccess: 'modals/showModalNotifySuccess',
+        }),
+        getLikeCategory(){
+            axios.get('/getLikeCategory?userId=' + this.auth.id)
+                .then(response => {
+                    console.log('getLikeCategory');
+                    console.log(response.data);
+                    let arr = response.data.data;
+                    for(let i = 0; i < arr.length; i++){
+                        console.log(arr[i]);
+                        this.value.push(arr[i]);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
-
         addTag (newTag) {
+            console.log(newTag);
             const tag = {
                 name: newTag,
                 code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
             }
             this.options.push(newTag)
             this.value.push(newTag)
+        },
+        saveUserInfo(){
+            const formData = new FormData();
+            formData.append('name', this.auth.name);
+            formData.append('email', this.auth.email);
+            formData.append('file', this.fileNew);
+            formData.append('id', this.auth.id);
+
+            this.$http.post('/editUser', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            ).then(response => {
+                if(response.data.success){
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            const likeCate = [];
+            for(let i = 0; i < this.value.length; i++){
+                likeCate.push(this.value[i].id);
+            }
+
+            axios.post('/likeCategory' , {
+                    likes: likeCate,
+                    userId: this.auth.id
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            this.showModalNotifySuccess('edit_user');
         },
 
         getListCategories(){
@@ -118,11 +188,11 @@ export default {
                 });
         },
         handleUploadFile(e) {
-            this.uploadAvatarFile = e.target.files[0];
+            this.fileNew = e.target.files[0];
             const reader = new FileReader();
             reader.readAsDataURL(e.target.files[0]);
             reader.onload = (e1) => {
-                this.displayInfo.avatar = e1.target.result;
+                this.picNew = e1.target.result;
             };
         },
     }
@@ -130,15 +200,7 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="scss" scoped >
-    .table-item {
-        height: 400px;
-        overflow-y: scroll;
-    }
-    @media screen and (min-width: 1400px) {
-        .table-item {
-            height: 700px;
-        }
-    }
+
     .ebook {
         position: relative;
         img {
@@ -243,11 +305,5 @@ export default {
 
     }
 
-    .btn-primary {
-        background-color: #fee67a;
-        min-width: 90px;
-        color: black;
-        border-color: orange;
-    }
 
 </style>

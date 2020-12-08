@@ -168,7 +168,7 @@
         margin-bottom: 2%;
     }
     .table-item {
-        height: 400px;
+        height: 450px;
         overflow-y: scroll;
     }
     @media screen and (min-width: 1400px) {

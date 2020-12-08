@@ -13,7 +13,8 @@
                     >
                         <router-link :to="{name:'book', params: { id: book.id } }">
                             <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 111px;">
-                            <p class="book-name">{{book.name}}</p>
+                            <p class="book-name" style="    color: rgb(0 0 0);
+    padding-top: 15px;">{{book.name}}</p>
                         </router-link>
                     </div>
                 </div>
@@ -130,31 +131,19 @@ export default {
             });
         },
 
-        getListBooksLike(pageNum){
-            axios.get('/getListBooksLike' , {
-                params: {
-                    userId: this.auth.id,
-                },
-            })
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
+
     }
 }
 </script>
-<style lang="scss" scoped >
-    .table-item {
-        height: 400px;
-        overflow-y: scroll;
+<style lang="scss"  >
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background-color: rgb(238 238 238);
+        color: rgb(0 0 0);
     }
-    @media screen and (min-width: 1400px) {
-        .table-item {
-            height: 700px;
-        }
+
+    .img-book {
+        box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 5px 5px;
     }
     .ebook {
         position: relative;
@@ -173,11 +162,11 @@ export default {
     .book-name {
         text-align: center;
     }
-    .content-container {
-        margin-top: 20px;
-        height: 550px;
-        overflow-y: scroll;
-    }
+    /*.content-container {*/
+    /*    margin-top: 20px;*/
+    /*    height: 550px;*/
+    /*    overflow-y: scroll;*/
+    /*}*/
     /*.category-list {*/
     /*    overflow-y: scroll;*/
     /*    height: 420px;*/

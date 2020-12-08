@@ -72,7 +72,7 @@
           user: [
             {
               name: 'Home',
-              path: 'categories'
+              path: 'home-user'
             }
           ],
           // LOGGED ADMIN

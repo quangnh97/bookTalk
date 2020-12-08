@@ -24,6 +24,13 @@ export const getters = {
         return state.show_modal_edit_category.show;
     },
 
+    isShowingModalNotifySuccess: (state) => {
+        return state.show_modal_notify_success.show;
+    },
+    modelNotify: (state) => {
+        return state.show_modal_notify_success.model;
+    },
+
     isShowingModalEditBook: (state) => {
         return state.show_modal_edit_book.show;
     },
