@@ -72,7 +72,6 @@
         data() {
             return {
                 users:[],
-                pageNumber: this.$route.params.pageNumber, // page so bao nhieu
                 // pageNum: Number(this.$route.params.pageNumber),
                 pageNum: 1,
                 numberPage: 1, // so trang

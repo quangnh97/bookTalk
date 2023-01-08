@@ -50,15 +50,15 @@ services:
     #   - travellist
 
   # Redis Service
-  redis: 
+  redis:
     image: redis:5-alpine
     container_name: docker-redis
-    volumes: 
+    volumes:
       - .docker/data/redis:/data
     restart: unless-stopped
     ports:
       - 6380:6379
-  
+
   # NodeJs server with Socket.io
   # nodejs:
   #   build:

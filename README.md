@@ -26,5 +26,5 @@
 
 ## Usage
 
-Log as admin with `admin@test.com:admin` or as user with `user@test.com:secret`
+Log as admin with `superAdmin@gmail.com:secret` or as user with `user@test.com:secret`
 

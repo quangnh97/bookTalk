@@ -67,7 +67,8 @@ class BooksController extends Controller
             ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
             ->join('likes', 'likes.book_id', '=', 'book.id')
             ->where('likes.user_id', $userId)
-            ->select( 'likes.id','book.name','book_profile.pic')
+            ->select( 'likes.id','book.name','book_profile.pic', 'book.id as bookId')
+            ->orderBy('likes.index', 'ASC')
             ->paginate(10);
 
         return response()->json([
@@ -102,6 +103,22 @@ class BooksController extends Controller
 
             return $books;
         }
+    }
+
+    public function allBook(Request $request)
+    {
+
+        $books = DB::table('book_category')
+            ->join('book', 'book.id', '=', 'book_category.book_id')
+            ->join('book_profile', 'book_profile.book_id', '=', 'book_category.book_id')
+            ->select( 'book.id','book.name','book_profile.author', 'book_profile.totalView')
+            ->orderBy('book_profile.totalView', 'DESC')
+            ->paginate(12);
+
+        return response()->json([
+            'success' => true,
+            'books' => $books,
+        ]);
     }
 
 

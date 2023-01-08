@@ -51,6 +51,9 @@
 </template>
 
 <script>
+    import EventBus from '../app';
+    import Login from '../pages/Login';
+
   export default {
     data() {
       return {
@@ -103,6 +106,18 @@
               .catch(function (error) {
                   console.log(error);
               });
+
+          EventBus.$on(Login.LOGIN, () => {
+              axios.get('/user')
+                  .then(response => {
+                      this.auth = response.data;
+
+                      console.log(this.user);
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  });
+          });
       },
 
       methods: {

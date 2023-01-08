@@ -48,7 +48,7 @@
             <div class="button-setting">
                 <div class="mini-color" />
                 <div class="bt-st">
-                    <router-link :to="{name:'users-manager'}">
+                    <router-link :to="{name:'statistical'}">
                         <button type="button" class="btn btn-warning st-sp">
                             Thống kê
                         </button>

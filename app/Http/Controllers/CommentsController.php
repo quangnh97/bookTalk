@@ -54,8 +54,35 @@ class CommentsController extends Controller
         ]);
     }
 
-    public function deleteComment($id, Request $request){
+    public function allComments(Request $request){
+        Log::info( 'id ' . $request->id);
+        $comments = DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.user_id')
+            ->join('book', 'book.id', '=', 'comments.book_id')
+            ->select( 'comments.id','comments.comment','users.name as userName', 'book.name as bookName')
+            ->orderBy('comments.id', 'DESC')
+            ->paginate(12);
+        return response()->json([
+            'success' => true,
+            'comments' => $comments,
+        ]);
+    }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Log::info( 'delete ' . $id);
+        DB::table('comments')
+            ->where('id', $id)
+            ->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function updateComment($id, Request $request){

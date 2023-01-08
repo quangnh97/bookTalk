@@ -15,7 +15,7 @@ class UserController extends Controller
         $users = DB::table('users')
             ->where('role','!=', 3)
             ->select( 'id','name','email','role')
-            ->paginate(12);
+            ->paginate(10);
 
         return response()->json(
             [

@@ -11,7 +11,7 @@
                     <draggable v-model="books" @end="onEndMove">
                         <transition-group>
                             <div v-for="(book, index) in books" :key="book.id" class="col-xs-6 col-md-3 col-sm-3 ebook">
-                                <router-link :to="{name:'book', params: { id: book.id } }">
+                                <router-link :to="{name:'book', params: { id: book.bookId } }">
                                     <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" style="width: 111px;">
                                     <p class="book-name" style="    color: rgb(0 0 0);
     padding-top: 15px;">{{book.name}}</p>

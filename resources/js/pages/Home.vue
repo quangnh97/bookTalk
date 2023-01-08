@@ -29,7 +29,7 @@
         </div>
         <div style="max-width: 900px;
             margin: 0 auto; margin-top: 30px;">
-            <h2>Sách được đọc nhiều nhất</h2>
+            <h3 style="    font-weight: bold;">Sách được đọc nhiều nhất</h3>
             <carousel 					:perPage="4"
                                          :autoplay="true"
                                          :loop="true"

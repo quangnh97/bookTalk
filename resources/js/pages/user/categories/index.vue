@@ -17,7 +17,7 @@
 
     <div style="max-width: 900px;
             margin: 0 auto; margin-top: 30px;">
-        <h2>Sách được đọc nhiều nhất</h2>
+        <h3 style="    font-weight: bold;">Sách được đọc nhiều nhất</h3>
         <carousel 					:perPage="4"
                                      :autoplay="true"
                                      :loop="true"
@@ -33,12 +33,20 @@
         </carousel>
     </div>
 
-    <h2>Sách đề xuất cho bạn</h2>
+    <h3 style="text-align: center;
+                text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    border-top: 1px solid rgb(222 226 230);
+    padding-top: 10px;
+">Sách đề xuất cho bạn</h3>
     <div style="max-width: 900px;
-            margin: 0 auto; margin-top: 30px;"
+            margin: 0 auto; margin-top: 30px;
+
+"
         v-for="(like,index) in likes" :key="index"
     >
-        <h3>{{like.name[0].name}}</h3>
+        <h4>{{like.name[0].name}}</h4>
         <carousel 					:perPage="4"
                                      :autoplay="true"
                                      :loop="true"
@@ -58,25 +66,38 @@
 
 <script>
 export default {
-    props: {
-        auth: {
-            type: Object
-        }
-    },
+    // props: {
+    //     auth: {
+    //         type: Object
+    //     }
+    // },
 
     data() {
         return {
             categories:[],
             books:[],
             likes: [],
+            auth: {},
         }
     },
 
     created() {
-        this.getListCategories();
-        this.getLikeCategory();
-        this.getListBooks();
+        axios.get('/user')
+            .then(response => {
+                this.auth = response.data;
+                this.getLikeCategory();
+                console.log(this.user);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         console.log('auth' + this.auth);
+        this.getListCategories();
+
+        this.getListBooks();
+
+
+
     },
     methods: {
         getListCategories(){

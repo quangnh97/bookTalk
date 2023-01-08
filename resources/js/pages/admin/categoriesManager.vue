@@ -18,7 +18,11 @@
                     <td class="color-column">
                         {{ category.id }}
                     </td>
-                    <td class="status-column">{{ category.name }}</td>
+                    <td class="status-column">
+                        <router-link :to="{name:'books-category', params: { id: category.id } }">
+                            {{ category.name }}
+                        </router-link>
+                    </td>
                     <td class="active">
                         <a-button type="primary"
                                   @click="showModalEditCategory(category)"

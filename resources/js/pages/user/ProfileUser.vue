@@ -82,11 +82,11 @@ import EventBus from "../../app";
 import { mapActions, mapState } from 'vuex';
 export default {
 
-    props: {
-        auth: {
-            type: Object
-        }
-    },
+    // props: {
+    //     auth: {
+    //         type: Object
+    //     }
+    // },
     data() {
         return {
             pageNumber: this.$route.params.pageNumber, // page so bao nhieu
@@ -100,12 +100,26 @@ export default {
             picNew: '',
             fileNew: '',
             likes: [],
+            auth: {},
         }
     },
 
     created() {
-        this.getListCategories();
-        this.getLikeCategory();
+        axios.get('/user')
+            .then(response => {
+                this.auth = response.data;
+                this.getListCategories();
+                this.getLikeCategory();
+                console.log(this.user);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        console.log('auth' + this.auth);
+
+
+
+
     },
     methods: {
         ...mapActions({

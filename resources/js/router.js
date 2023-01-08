@@ -23,6 +23,7 @@ import categoriesManager from './pages/admin/categoriesManager'
 import usersComment from './pages/admin/usersComment'
 import usersManager from './pages/admin/usersManager'
 import booksCategory from './pages/admin/booksCategory'
+import statistical from './pages/admin/statistical'
 
 // Routes
 const routes = [
@@ -216,6 +217,12 @@ const routes = [
                 path: '/books-category/:id',
                 name: 'books-category',
                 component: booksCategory,
+            },
+
+            {
+                path: '/statistical',
+                name: 'statistical',
+                component: statistical,
             },
 
         ],

@@ -8,6 +8,7 @@
                     <th>Tên sách</th>
                     <th>Ảnh bìa</th>
                     <th>Tác giả</th>
+                    <th style="width: 10%">Lượt xem</th>
                     <th class="active">
                         <a-button type="primary"
                                   @click="showModalCreateBook(categoryId)"
@@ -20,11 +21,16 @@
                     <td class="color-column">
                         {{ book.id }}
                     </td>
-                    <td class="name-column">{{ book.name }}</td>
+                    <td class="name-column">
+                        <router-link :to="{name:'book', params: { id: book.id } }">
+                            {{ book.name }}
+                        </router-link>
+                    </td>
                     <td class="pic-column">
                         <img :src="'/images/books/'+ book.pic" :alt="book.name" class="img-book" width="100" >
                     </td>
                     <td class="author-column">{{ book.author }}</td>
+                    <td class="color-column">{{ book.totalView }}</td>
                     <td class="active">
                         <a-button type="primary"
                           @click="showEditBook(book.id)"
@@ -40,6 +46,7 @@
                         <a-button
                             type="danger"
                             @click="showModalDeleteBook(book.id)"
+                            style="    margin-top: 5px;"
                             >
                             <i class="fas fa-eraser" />
                         </a-button>

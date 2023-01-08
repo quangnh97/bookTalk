@@ -3,7 +3,7 @@
     <div class="top-menu">
         <div class="container" style="position: relative;">
             <span style="float: left;" >
-        <router-link :to="{name: 'dashboard'}" style="font-size:24px; text-transform: uppercase; text-decoration: none; font-weight: bold;">
+        <router-link :to="{name: 'home'}" style="font-size:24px; text-transform: uppercase; text-decoration: none; font-weight: bold;">
 <!--          <img :src="'/images/logoBT.png'" width="40" style="margin:5px;"/>-->
           SachHay
         </router-link>
@@ -48,6 +48,9 @@
   import contactsList from './components/contactsList';
   import AppModals from './pages/modals/index';
 
+  import EventBus from '../js/app';
+  import Login from '../js/pages/Login';
+
   export default {
     components: {
       navigationMenu,
@@ -83,7 +86,17 @@
 
         // var socket = io.connect('http://127.0.0.1:8090');
 
-        console.log(socket);
+          EventBus.$on(Login.LOGIN, () => {
+              axios.get('/user')
+                  .then(response => {
+                      this.user = response.data;
+
+                      console.log(this.user);
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  });
+          });
         // lang nghe
         // socket.on(`private-chat.${this.user.id}:message`, (data) => {
         //     console.log('on redis');
@@ -92,16 +105,16 @@
         // });
 
 
-        // get list contacts
-        axios.get('/contacts')
-        .then((response) => {
-          this.contacts = response.data;
-          console.log(this.contacts);
-          this.countTotalUnread = 0;
-          this.contacts.map((single) => {
-            this.countTotalUnread += single.unread;
-          })
-        });
+        // // get list contacts
+        // axios.get('/contacts')
+        // .then((response) => {
+        //   this.contacts = response.data;
+        //   console.log(this.contacts);
+        //   this.countTotalUnread = 0;
+        //   this.contacts.map((single) => {
+        //     this.countTotalUnread += single.unread;
+        //   })
+        // });
       })
       .catch(function (error) {
         console.log(error);

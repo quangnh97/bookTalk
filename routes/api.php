@@ -77,12 +77,15 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::resource('books', BooksController::class);
     Route::post('/books/update/{id}', 'BooksController@update');
     Route::get('/booksStore', 'BooksController@booksStore');
+    Route::get('/allBook', 'BooksController@allBook');
     Route::post('/sortBooksStore', 'BooksController@sortBooksStore');
 
     Route::get('/readOnline','BooksController@readOnline');
 
     //add comments
+    Route::resource('comments', CommentsController::class);
     Route::get('comments', 'CommentsController@comments');
+    Route::get('allComments', 'CommentsController@allComments');
 
     Route::post('addComment', 'CommentsController@addComment');
     //delete comments

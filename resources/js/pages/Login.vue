@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <div class="panel panel-default">
-      <div class="panel-heading">Login</div>
+      <div class="panel-heading"> <h3 style="    font-weight: bold;
+    text-align: center;">Đăng nhập</h3></div>
 
       <div class="panel-body">
         <div class="alert alert-danger" v-if="has_error">
-          <p>Error, unable to connect with these identifiers.</p>
+          <p>Lỗi, email hoặc mật khẩu bạn nhập không chính xác!</p>
         </div>
         <form autocomplete="off" @submit.prevent="login" method="post">
           <div class="form-group">
@@ -13,7 +14,7 @@
             <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mật khẩu</label>
             <input type="password" id="password" class="form-control" v-model="password" required>
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
@@ -24,7 +25,10 @@
 </template>
 
 <script>
+    import EventBus from '../app';
+    const LOGIN = 'LOGIN';
   export default {
+      LOGIN: LOGIN,
     data() {
       return {
         email: null,
@@ -66,7 +70,7 @@
           success: function() {
             // handle redirection
             const redirectTo = redirect ? redirect.from.name : this.$auth.user().role === 2 ? 'admin.dashboard' : 'home-user'
-
+              EventBus.$emit(LOGIN, 'LOGIN');
             this.$router.push({name: redirectTo})
           },
           error: function() {
